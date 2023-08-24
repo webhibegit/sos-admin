@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.78a2a91c.css",
+    "main.js": "/static/js/main.33e466b7.js",
+    "static/js/787.2f83cecc.chunk.js": "/static/js/787.2f83cecc.chunk.js",
+    "static/media/citynights.jpg": "/static/media/citynights.8df3ac24685306a68061.8df3ac24685306a68061.jpg",
+    "static/media/Linearicons-Free.svg?w118d": "/static/media/Linearicons-Free.afe8c36119b7bfdb4db4.svg",
+    "static/media/Linearicons-Free.eot": "/static/media/Linearicons-Free.eb992e965197b4672140.eot",
+    "static/media/Linearicons-Free.woff?w118d": "/static/media/Linearicons-Free.a78a26fb0b18bc4cde28.woff",
+    "static/media/Linearicons-Free.ttf?w118d": "/static/media/Linearicons-Free.5cbe0a85581dc42087ac.ttf",
+    "static/media/Linearicons-Free.woff2?w118d": "/static/media/Linearicons-Free.857c65d6452680b4f3b1.woff2",
+    "static/media/slick.svg": "/static/media/slick.2630a3e3eab21c607e21.svg",
+    "index.html": "/index.html",
+    "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
+    "main.78a2a91c.css.map": "/static/css/main.78a2a91c.css.map",
+    "main.33e466b7.js.map": "/static/js/main.33e466b7.js.map",
+    "787.2f83cecc.chunk.js.map": "/static/js/787.2f83cecc.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.78a2a91c.css",
+    "static/js/main.33e466b7.js"
+  ]
+}
