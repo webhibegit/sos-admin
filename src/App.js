@@ -47,14 +47,15 @@ function App() {
           reverseOrder={false}
         />
 
+
         {/* <Sidebar isSidebar={isSidebar} /> */}
         {/* <main className="content"> */}
         {/* <Topbar setIsSidebar={setIsSidebar} /> */}
         <Routes>
-          <Route path="/" element={<PrivateRouter />}>
+          <Route element={<PrivateRouter />}>
             <Route element={<Layout isSidebar={isSidebar} setIsSidebar={setIsSidebar} />} >
-
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/" element={<Dashboard />} />
 
               <Route path="/add-category" element={<AddCategory />} />
               <Route path="/manage-category" element={<ManageCAtegory />} />

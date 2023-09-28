@@ -10,6 +10,7 @@ import toast from 'react-hot-toast';
 import { DeleteConfirmModal } from '../../CustomComponents/DeleteConfirmModal';
 import Header from '../../components/Header';
 import { useNavigate } from 'react-router-dom';
+import CustomLoader from '../../CustomComponents/loader/CustomLoader';
 
 const ManageWork = () => {
     const theme = useTheme();
@@ -19,6 +20,7 @@ const ManageWork = () => {
     const navigate = useNavigate();
 
     const [tableData, setTableData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const columns = [
         {
@@ -37,10 +39,10 @@ const ManageWork = () => {
             name: 'Subtitle',
             selector: row => row.subtitle,
         },
-        // {
-        //     name: 'Description',
-        //     selector: row => row.desc,
-        // },
+        {
+            name: 'Priority',
+            selector: row => row.priority,
+        },
         // {
         //     name: 'Image',
         //     selector: row => row.image,
@@ -62,6 +64,7 @@ const ManageWork = () => {
                 name: item?.catName,
                 title: item?.title,
                 subtitle: item?.subTitle,
+                priority: item?.priority,
                 action: <EditDeleteIcon
                     onClickEdit={() => handleEdit(item?._id)}
                     onClickDelete={() => handleDelete(item?._id)}
@@ -99,6 +102,8 @@ const ManageWork = () => {
 
     return (
         <div>
+            <CustomLoader loading={isLoading} />
+
             <Box m="12px">
                 <Header title="MANAGE WORK" subtitle="" />
 

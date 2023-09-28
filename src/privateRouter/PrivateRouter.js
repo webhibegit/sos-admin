@@ -3,8 +3,9 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 const PrivateRouter = () => {
     const userToken = localStorage.getItem("userDataSos");
-    console.log("privvrr", userToken)
+
     if (userToken) {
+        console.log("privvrr", userToken);
         return <Outlet />
     } else {
         return <Navigate to={'/login'} />

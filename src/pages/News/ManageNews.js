@@ -9,6 +9,7 @@ import EditDeleteIcon from '../../CustomComponents/EditDeleteIcon';
 import { DeleteConfirmModal } from '../../CustomComponents/DeleteConfirmModal';
 import Header from '../../components/Header';
 import { useNavigate } from 'react-router-dom';
+import CustomLoader from '../../CustomComponents/loader/CustomLoader';
 
 
 const ManageNews = () => {
@@ -17,6 +18,7 @@ const ManageNews = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
 
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
     const [tableData, setTableData] = useState([]);
 
@@ -86,7 +88,6 @@ const ManageNews = () => {
         DeleteConfirmModal(del);
     }
 
-
     useEffect(() => {
         getNewsData();
     }, [])
@@ -94,6 +95,8 @@ const ManageNews = () => {
     return (
         <div>
             <Box m="12px">
+                <CustomLoader loading={isLoading} />
+
 
                 <Header title="MANAGE NEWS" subtitle="" />
 

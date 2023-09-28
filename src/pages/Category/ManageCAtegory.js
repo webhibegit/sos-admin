@@ -9,6 +9,7 @@ import EditDeleteIcon from '../../CustomComponents/EditDeleteIcon';
 import { DeleteConfirmModal } from '../../CustomComponents/DeleteConfirmModal';
 import Header from '../../components/Header';
 import { useNavigate } from 'react-router-dom';
+import CustomLoader from '../../CustomComponents/loader/CustomLoader';
 
 
 const ManageCAtegory = () => {
@@ -19,6 +20,7 @@ const ManageCAtegory = () => {
     const navigate = useNavigate();
 
     const [tableData, setTableData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const columns = [
         {
@@ -84,6 +86,7 @@ const ManageCAtegory = () => {
     return (
         <div>
             <Box m="12px">
+                <CustomLoader loading={isLoading} />
 
                 <Header title="MANAGE CATEGORY" subtitle="" />
 

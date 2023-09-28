@@ -7,13 +7,16 @@ import { useEffect, useState } from "react";
 import HttpClient from "../../utils/HttpClient";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
+import CustomLoader from "../../CustomComponents/loader/CustomLoader";
 
 const EditCategory = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const navigate = useNavigate();
     const params = useParams();
 
-    const [catName, setCatName] = useState()
+    const [catName, setCatName] = useState();
+    const [isLoading, setIsLoading] = useState(false);
+
 
     // submit
     const handleSubmit = async (e) => {
@@ -60,6 +63,8 @@ const EditCategory = () => {
 
     return (
         <Box m="20px">
+            <CustomLoader loading={isLoading} />
+
             <Header title="Update Category" subtitle="" />
 
             <form>

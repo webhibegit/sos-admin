@@ -4,6 +4,7 @@ import Topbar from '../scenes/global/Topbar'
 import { Outlet } from 'react-router-dom'
 
 const Layout = ({ isSidebar, setIsSidebar }) => {
+    // console.log("Layout")
     return (
         <div>
             <div className="app">

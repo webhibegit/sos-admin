@@ -7,12 +7,14 @@ import { useState } from "react";
 import HttpClient from "../../utils/HttpClient";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import CustomLoader from "../../CustomComponents/loader/CustomLoader";
 
 const AddCategory = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const navigate = useNavigate();
 
     const [catName, setCatName] = useState()
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const handleSubmit = async (e) => {
@@ -45,6 +47,9 @@ const AddCategory = () => {
 
     return (
         <Box m="20px">
+
+            <CustomLoader loading={isLoading} />
+
             <Header title="ADD CATEGORY" subtitle="" />
 
             <form>

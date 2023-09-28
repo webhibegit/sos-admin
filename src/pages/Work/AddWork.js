@@ -8,10 +8,12 @@ import HttpClient, { IMAGE_URL } from "../../utils/HttpClient";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { MenuItem } from "react-pro-sidebar";
+import CustomLoader from "../../CustomComponents/loader/CustomLoader";
 
 const AddWork = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
     const [catName, setCatName] = useState()
     const initValue = {
@@ -20,7 +22,7 @@ const AddWork = () => {
         subTitle: "",
         priority: "",
         description: "",
-        video: "video",
+        video: "",
         image: []
     }
     const [formValue, setFormValue] = useState(initValue);
@@ -108,10 +110,10 @@ const AddWork = () => {
             toast.error("Description is required");
             return true
         }
-        // if (!formValue?.video) {
-        //     toast.error("Video is required");
-        //     return true
-        // }
+        if (!formValue?.video) {
+            toast.error("Video Link is required");
+            return true
+        }
         if (formValue?.image.length === 0) {
             toast.error("Image is required");
             return true
@@ -158,6 +160,8 @@ const AddWork = () => {
 
     return (
         <Box m="20px">
+            <CustomLoader loading={isLoading} />
+
             <Header title="ADD WORK" subtitle="" />
 
             <form>
@@ -205,7 +209,7 @@ const AddWork = () => {
                     </div>
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Description</label>
-                        <input
+                        <textarea
                             type="text"
                             className="form-control"
                             placeholder="Description"
@@ -281,14 +285,14 @@ const AddWork = () => {
 
                 <div className="row">
                     <div className="col-sm-6">
-                        <label htmlFor="formGroupExampleInput">Video</label>
+                        <label htmlFor="formGroupExampleInput">Video Link</label>
                         <input
-                            type="file"
+                            type="text"
                             className="form-control"
-                            placeholder="Video"
-                            name="category"
-                            value={catName}
-                            onChange={handleVideoUpload}
+                            placeholder="Video Link"
+                            name="video"
+                            value={formValue?.video}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>

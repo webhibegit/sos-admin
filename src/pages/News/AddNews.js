@@ -7,6 +7,7 @@ import { useState } from "react";
 import HttpClient, { IMAGE_URL } from "../../utils/HttpClient";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import CustomLoader from "../../CustomComponents/loader/CustomLoader";
 
 const AddNews = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -17,6 +18,7 @@ const AddNews = () => {
     const [newsImg, setNewsImg] = useState("");
     const [newsLink, setNewsLink] = useState("");
     const [imageLoader, setImgLoader] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     console.log("newsImg", newsLink, newsImg)
 
@@ -75,6 +77,8 @@ const AddNews = () => {
 
     return (
         <Box m="20px">
+            <CustomLoader loading={isLoading} />
+
             <Header title="ADD NEWS" subtitle="" />
 
             <form>

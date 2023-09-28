@@ -8,6 +8,7 @@ import HttpClient, { IMAGE_URL } from "../../utils/HttpClient";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { MenuItem } from "react-pro-sidebar";
+import CustomLoader from "../../CustomComponents/loader/CustomLoader";
 
 const EditWork = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -19,6 +20,7 @@ const EditWork = () => {
         title: "",
         subTitle: "",
         description: "",
+        priority: "",
         video: "video",
         image: []
     }
@@ -27,6 +29,7 @@ const EditWork = () => {
     const [imageLoader, setImgLoader] = useState(false);
     const [catLoadet, setCatLoader] = useState(false);
     const [singleWork, setSingleWork] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
 
     console.log("formValueddf", formValue)
 
@@ -63,24 +66,12 @@ const EditWork = () => {
                 subTitle: sinData?.subTitle,
                 description: sinData?.description,
                 video: sinData?.video,
-                image: sinData?.image
+                image: sinData?.image,
+                priority: sinData?.priority
             })
         } else {
 
         }
-    }
-
-    // video upload
-    const handleVideoUpload = async (e) => {
-        // let file = e.target.files[0]
-        // let data = new FormData();
-        // data.append("image", file);
-        // console.log(data, "daaaaa");
-        // let result = await HttpClient.fileUplode(
-        //     "image-upload/product",
-        //     "POST",
-        //     data
-        // );
     }
 
     // image upload
@@ -124,15 +115,18 @@ const EditWork = () => {
             toast.error("Description is required");
             return true
         }
-        // if (!formValue?.video) {
-        //     toast.error("Video is required");
-        //     return true
-        // }
+        if (!formValue.priority) {
+            toast.error("Priority is required");
+            return true
+        }
         if (formValue?.image.length === 0) {
             toast.error("Image is required");
             return true
         }
-
+        if (!formValue?.video) {
+            toast.error("Video is required");
+            return true
+        }
         return false
     }
 
@@ -151,7 +145,8 @@ const EditWork = () => {
             subTitle: formValue.subTitle,
             description: formValue.description,
             video: formValue.video,
-            image: formValue.image
+            image: formValue.image,
+            priority: formValue?.priority
         }
         const res = await HttpClient.requestData("update-work/" + params.id, "PUT", data);
         // console.log("resCat", res)
@@ -172,6 +167,8 @@ const EditWork = () => {
 
     return (
         <Box m="20px">
+            <CustomLoader loading={isLoading} />
+
             <Header title="Update Work" subtitle="" />
 
             <form>
@@ -220,7 +217,7 @@ const EditWork = () => {
                     </div>
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Description</label>
-                        <input
+                        <textarea
                             type="text"
                             className="form-control"
                             placeholder="Description"
@@ -233,16 +230,17 @@ const EditWork = () => {
 
                 <div className="row">
                     <div className="col">
-                        <label htmlFor="formGroupExampleInput">Video</label>
+                        <label htmlFor="formGroupExampleInput">Priority</label>
                         <input
-                            type="file"
+                            type="text"
                             className="form-control"
-                            placeholder="Video"
-                            onChange={handleVideoUpload}
-                            // value={catName}
-                            name="category"
+                            placeholder="Priority"
+                            name="priority"
+                            value={formValue.priority}
+                            onChange={handleChange}
                         />
                     </div>
+
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Image</label>
                         <input
@@ -293,10 +291,23 @@ const EditWork = () => {
                             }
                         </div>
 
+
                     </div>
                 </div>
 
-
+                <div className="row">
+                    <div className="col-sm-6">
+                        <label htmlFor="formGroupExampleInput">Video Link</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Video Link"
+                            name="video"
+                            value={formValue?.video}
+                            onChange={handleChange}
+                        />
+                    </div>
+                </div>
 
                 {/* Button */}
                 <Box display="flex" justifyContent="end" mt="20px">
