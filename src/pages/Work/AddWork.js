@@ -18,6 +18,7 @@ const AddWork = () => {
         catID: "",
         title: "",
         subTitle: "",
+        priority: "",
         description: "",
         video: "video",
         image: []
@@ -65,7 +66,7 @@ const AddWork = () => {
     // image upload
     const handleImageChange = async (e) => {
         let file = e.target.files
-        let imgArr = []
+        let imgArr = formValue?.image
         for (let item of file) {
             let data = new FormData();
             data.append("image", item);
@@ -99,6 +100,10 @@ const AddWork = () => {
             toast.error("Subtitle is required");
             return true
         }
+        if (!formValue?.priority) {
+            toast.error("Priority is required");
+            return true
+        }
         if (!formValue?.description) {
             toast.error("Description is required");
             return true
@@ -130,7 +135,9 @@ const AddWork = () => {
             subTitle: formValue.subTitle,
             description: formValue.description,
             video: formValue.video,
-            image: formValue.image
+            image: formValue.image,
+            priority: formValue.priority
+
         }
         const res = await HttpClient.requestData("add-work", "POST", data);
         // console.log("resCat", res)
@@ -210,17 +217,19 @@ const AddWork = () => {
                 </div>
 
                 <div className="row">
+
                     <div className="col">
-                        <label htmlFor="formGroupExampleInput">Video</label>
+                        <label htmlFor="formGroupExampleInput">Priority</label>
                         <input
-                            type="file"
+                            type="text"
                             className="form-control"
-                            placeholder="Video"
-                            onChange={handleVideoUpload}
-                            value={catName}
-                            name="category"
+                            placeholder="Priority"
+                            name="priority"
+                            value={formValue.priority}
+                            onChange={handleChange}
                         />
                     </div>
+
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Image</label>
                         <input
@@ -233,6 +242,12 @@ const AddWork = () => {
                             multiple
                         />
 
+                        {/* dimention */}
+                        <div>
+                            (700 x 700 px)
+                        </div>
+
+                        {/* picture */}
                         <div>
                             {imageLoader &&
                                 <div>
@@ -264,7 +279,19 @@ const AddWork = () => {
                     </div>
                 </div>
 
-
+                <div className="row">
+                    <div className="col-sm-6">
+                        <label htmlFor="formGroupExampleInput">Video</label>
+                        <input
+                            type="file"
+                            className="form-control"
+                            placeholder="Video"
+                            name="category"
+                            value={catName}
+                            onChange={handleVideoUpload}
+                        />
+                    </div>
+                </div>
 
                 {/* Button */}
                 <Box display="flex" justifyContent="end" mt="20px">

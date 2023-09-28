@@ -95,7 +95,7 @@ const ManageNews = () => {
         <div>
             <Box m="12px">
 
-                <Header title="MANAGE News" subtitle="" />
+                <Header title="MANAGE NEWS" subtitle="" />
 
                 <div>
                     <DataTable

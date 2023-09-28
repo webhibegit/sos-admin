@@ -53,14 +53,14 @@ const AddNews = () => {
     // image upload
     const handleImageChange = async (e) => {
         let file = e.target.files[0]
-        let imgArr = [];
+        // let imgArr = [];
 
         let data = new FormData();
         data.append("image", file);
         // console.log(data, "daaaaa");
         setImgLoader(true)
         let res = await HttpClient.fileUplode("work-image-upload", "POST", data);
-        console.log("resultImg", res);
+        // console.log("resultImg", res);
         if (res && res?.status) {
             setImgLoader(false)
             let url = IMAGE_URL + res?.data;

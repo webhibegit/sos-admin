@@ -30,6 +30,8 @@ import AddNews from "./pages/News/AddNews";
 import ManageNews from "./pages/News/ManageNews";
 import EditNews from "./pages/News/EditNews";
 
+import './Custom.css'
+
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
@@ -49,7 +51,7 @@ function App() {
         {/* <main className="content"> */}
         {/* <Topbar setIsSidebar={setIsSidebar} /> */}
         <Routes>
-          <Route element={<PrivateRouter />}>
+          <Route path="/" element={<PrivateRouter />}>
             <Route element={<Layout isSidebar={isSidebar} setIsSidebar={setIsSidebar} />} >
 
               <Route path="/dashboard" element={<Dashboard />} />

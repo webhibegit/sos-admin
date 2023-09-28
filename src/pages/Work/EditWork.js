@@ -86,7 +86,7 @@ const EditWork = () => {
     // image upload
     const handleImageChange = async (e) => {
         let file = e.target.files
-        let imgArr = []
+        let imgArr = formValue?.image
         for (let item of file) {
             let data = new FormData();
             data.append("image", item);
