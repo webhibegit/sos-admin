@@ -255,6 +255,12 @@ const EditWork = () => {
                             multiple
                         />
 
+                        {/* dimention */}
+                        <div>
+                            (700 x 700 px)
+                        </div>
+
+                        {/* image */}
                         <div>
                             {imageLoader
                                 ?

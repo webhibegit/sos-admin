@@ -91,6 +91,8 @@ const ManageCAtegory = () => {
                     <DataTable
                         columns={columns}
                         data={tableData}
+                        pagination
+                        striped
                     />
                 </div>
             </Box>

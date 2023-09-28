@@ -101,6 +101,8 @@ const ManageNews = () => {
                     <DataTable
                         columns={columns}
                         data={tableData}
+                        pagination
+                        striped
                     />
                 </div>
             </Box>
