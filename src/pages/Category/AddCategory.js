@@ -28,16 +28,17 @@ const AddCategory = () => {
         const data = {
             name: catName
         }
+        setIsLoading(true);
         const res = await HttpClient.requestData("add-category", "POST", data);
         // console.log("resCat", res)
         if (res && res?.status) {
-            toast.success("Category Added Successfully")
+            toast.success("Category Added Successfully");
             setCatName("");
             // navigate('/manage-category');
+            setIsLoading(false);
         } else {
-            toast.error(res?.message)
+            toast.error(res?.message);
         }
-
     };
 
     const handleChange = (e) => {

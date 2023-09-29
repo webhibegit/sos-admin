@@ -54,10 +54,12 @@ const ManageWork = () => {
     ];
 
     const getWorkData = async () => {
+        setIsLoading(true);
         const res = await HttpClient.requestData('view-work', "GET", {});
-        console.log("resGetCat", res)
+        // console.log("resGetCat", res)
         let apiData = []
         if (res && res?.status) {
+            setIsLoading(false);
             apiData = res?.data?.map((item, i) => ({
                 id: i + 1,
                 sl: i + 1,
@@ -71,7 +73,7 @@ const ManageWork = () => {
                 />
             }));
         } else {
-
+            setIsLoading(false);
         }
         setTableData(apiData);
     }
@@ -84,6 +86,7 @@ const ManageWork = () => {
     // delete
     const handleDelete = (id) => {
         const del = async () => {
+            setIsLoading(true);
             const res = await HttpClient.requestData("delete-work/" + id, "DELETE")
             if (res && res?.status) {
                 getWorkData();

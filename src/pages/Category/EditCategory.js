@@ -30,25 +30,30 @@ const EditCategory = () => {
             name: catName
         }
 
+        setIsLoading(true);
         const res = await HttpClient.requestData("update-category/" + params.id, "PUT", data);
         if (res && res?.status) {
             toast.success("Category Updated Successfully")
             navigate('/manage-category');
+            setIsLoading(false);
         } else {
             toast.error(res?.message)
+            setIsLoading(false);
         }
 
     };
 
     // get single Category data
     const getSingleCategory = async () => {
+        setIsLoading(true);
         const res = await HttpClient.requestData("view-single-category/" + params.id, "GET", {})
         console.log("resSingg", res);
         if (res && res?.status) {
             const sinData = res?.data[0]
             setCatName(sinData?.name)
+            setIsLoading(false);
         } else {
-
+            setIsLoading(false);
         }
     }
 

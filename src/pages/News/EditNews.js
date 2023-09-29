@@ -39,17 +39,19 @@ const EditNews = () => {
             image: newsImg,
             link: newsLink
         }
+        setIsLoading(true);
         const res = await HttpClient.requestData("update-news/" + params.id, "PUT", data);
-        console.log("resCat", res)
+        // console.log("resCat", res)
         if (res && res?.status) {
             toast.success("News Updated Successfully")
             setNewsImg("");
             setNewsLink("");
             navigate('/manage-news');
+            setIsLoading(false);
         } else {
-            toast.error(res?.message)
+            toast.error(res?.message);
+            setIsLoading(false);
         }
-
     };
 
 
@@ -76,12 +78,16 @@ const EditNews = () => {
     }
 
     const getSingleNews = async () => {
+        setIsLoading(true);
         const res = await HttpClient.requestData("view-single-news/" + params.id)
-        console.log("resGG", res)
+        // console.log("resGG", res)
         if (res && res?.status) {
             const singNews = res?.data[0];
             setNewsLink(singNews?.link);
             setNewsImg(singNews?.image);
+            setIsLoading(false);
+        } else {
+            setIsLoading(false);
         }
     }
 

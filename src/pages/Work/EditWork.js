@@ -55,9 +55,11 @@ const EditWork = () => {
 
     // get single work data
     const getSingleWork = async () => {
+        setIsLoading(true);
         const res = await HttpClient.requestData("view-single-work/" + params.id, "GET", {})
-        console.log("resSingg", res);
+        // console.log("resSingg", res);
         if (res && res?.status) {
+            setIsLoading(false);
             setSingleWork(res?.data);
             const sinData = res?.data[0]
             setFormValue({
@@ -70,7 +72,7 @@ const EditWork = () => {
                 priority: sinData?.priority
             })
         } else {
-
+            setIsLoading(false);
         }
     }
 
@@ -148,14 +150,17 @@ const EditWork = () => {
             image: formValue.image,
             priority: formValue?.priority
         }
+        setIsLoading(true);
         const res = await HttpClient.requestData("update-work/" + params.id, "PUT", data);
         // console.log("resCat", res)
         if (res && res?.status) {
             toast.success("Work Added Successfully");
             setFormValue(initValue);
             navigate('/manage-work');
+            setIsLoading(false);
         } else {
             toast.error(res?.message || "Something Wrong");
+            setIsLoading(false);
         }
     };
 

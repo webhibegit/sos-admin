@@ -139,18 +139,19 @@ const AddWork = () => {
             video: formValue.video,
             image: formValue.image,
             priority: formValue.priority
-
         }
+        setIsLoading(true);
         const res = await HttpClient.requestData("add-work", "POST", data);
         // console.log("resCat", res)
         if (res && res?.status) {
             toast.success("Work Added Successfully");
             setFormValue(initValue);
             // navigate('/manage-category');
+            setIsLoading(false);
         } else {
             toast.error(res?.message || "Something Wrong");
+            setIsLoading(false);
         }
-
     };
 
     useEffect(() => {
@@ -225,7 +226,7 @@ const AddWork = () => {
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Priority</label>
                         <input
-                            type="text"
+                            type="number"
                             className="form-control"
                             placeholder="Priority"
                             name="priority"

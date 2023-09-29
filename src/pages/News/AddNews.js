@@ -38,15 +38,19 @@ const AddNews = () => {
             image: newsImg,
             link: newsLink
         }
+
+        setIsLoading(true);
         const res = await HttpClient.requestData("add-news", "POST", data);
-        console.log("resCat", res)
+        // console.log("resCat", res)
         if (res && res?.status) {
             toast.success("News Added Successfully")
             setNewsImg("");
             setNewsLink("");
+            setIsLoading(false);
             // navigate('/manage-category');
         } else {
-            toast.error(res?.message)
+            toast.error(res?.message);
+            setIsLoading(false);
         }
 
     };

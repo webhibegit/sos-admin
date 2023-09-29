@@ -43,10 +43,12 @@ const ManageNews = () => {
 
     // fetch News DAta
     const getNewsData = async () => {
+        setIsLoading(true);
         const res = await HttpClient.requestData('view-news', "GET", {});
-        console.log("resGetCat", res)
+        // console.log("resGetCat", res)
         let apiData = []
         if (res && res?.status) {
+            setIsLoading(false);
             apiData = res?.data?.map((item, i) => ({
                 id: i + 1,
                 sl: i + 1,
@@ -63,7 +65,7 @@ const ManageNews = () => {
                 />
             }));
         } else {
-
+            setIsLoading(false);
         }
         setTableData(apiData);
     }
@@ -76,6 +78,7 @@ const ManageNews = () => {
     // delete
     const handleDelete = (id) => {
         const del = async () => {
+            setIsLoading(true);
             const res = await HttpClient.requestData("delete-news/" + id, "DELETE")
             if (res && res?.status) {
                 getNewsData();
