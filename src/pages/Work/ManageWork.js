@@ -11,6 +11,7 @@ import { DeleteConfirmModal } from '../../CustomComponents/DeleteConfirmModal';
 import Header from '../../components/Header';
 import { useNavigate } from 'react-router-dom';
 import CustomLoader from '../../CustomComponents/loader/CustomLoader';
+import ImageInDataTable from '../../CustomComponents/ImageInDataTable';
 
 const ManageWork = () => {
     const theme = useTheme();
@@ -43,10 +44,10 @@ const ManageWork = () => {
             name: 'Priority',
             selector: row => row.priority,
         },
-        // {
-        //     name: 'Image',
-        //     selector: row => row.image,
-        // },
+        {
+            name: 'Image',
+            selector: row => row.image,
+        },
         {
             name: 'Action',
             selector: row => row.action,
@@ -67,6 +68,7 @@ const ManageWork = () => {
                 title: item?.title,
                 subtitle: item?.subTitle,
                 priority: item?.priority,
+                image: <ImageInDataTable src={item?.image?.[0]} />,
                 action: <EditDeleteIcon
                     onClickEdit={() => handleEdit(item?._id)}
                     onClickDelete={() => handleDelete(item?._id)}

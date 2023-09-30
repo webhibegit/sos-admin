@@ -40,6 +40,62 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
+
+const sidebarItems = [
+
+  // category
+  {
+    heading: "Category",
+    subHeading: [
+      {
+        title: "Add Category",
+        link: "/add-category",
+        icon: <CategoryIcon />
+      },
+      {
+        title: "Manage Category",
+        link: "/manage-category",
+        icon: <CategoryIcon />
+      },
+    ]
+  },
+
+  // work
+  {
+    heading: "Work",
+    subHeading: [
+      {
+        title: "Add Work",
+        link: "/add-work",
+        icon: <FollowTheSignsIcon />
+      },
+      {
+        title: "Manage Work",
+        link: "/manage-work",
+        icon: <FollowTheSignsIcon />
+      },
+    ]
+  },
+
+  // work
+  {
+    heading: "News",
+    subHeading: [
+      {
+        title: "Add News",
+        link: "/add-news",
+        icon: <NewspaperIcon />
+      },
+      {
+        title: "Manage News",
+        link: "/manage-news",
+        icon: <NewspaperIcon />
+      },
+    ]
+  },
+
+]
+
 const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -161,8 +217,45 @@ const Sidebar = () => {
               setSelected={setSelected}
             /> */}
 
+
+            {
+              sidebarItems.map((item, i) =>
+                <Box key={i}>
+                  <Typography
+                    variant="h6"
+                    color={colors.grey[300]}
+                    sx={{ m: "15px 0 5px 20px" }}
+                  >
+                    {item?.heading}
+                  </Typography>
+
+                  {
+                    item?.subHeading?.map((ele, i) =>
+                      <Item
+                        key={i}
+                        title={ele?.title}
+                        to={ele?.link}
+                        icon={ele?.icon}
+                        selected={selected}
+                        setSelected={setSelected}
+                      />
+                    )
+                  }
+
+                  {/* <Item
+                    title="Manage Cateory"
+                    to="/manage-category"
+                    icon={<CategoryIcon />}
+                    selected={selected}
+                    setSelected={setSelected}
+                  /> */}
+                </Box>
+              )
+            }
+
+
             {/* Category */}
-            <Box>
+            {/* <Box>
               <Typography
                 variant="h6"
                 color={colors.grey[300]}
@@ -184,10 +277,10 @@ const Sidebar = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
-            </Box>
+            </Box> */}
 
             {/* Work */}
-            <Box>
+            {/* <Box>
               <Typography
                 variant="h6"
                 color={colors.grey[300]}
@@ -209,10 +302,10 @@ const Sidebar = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
-            </Box>
+            </Box> */}
 
             {/* News */}
-            <Box>
+            {/* <Box>
               <Typography
                 variant="h6"
                 color={colors.grey[300]}
@@ -234,7 +327,7 @@ const Sidebar = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
-            </Box>
+            </Box> */}
 
             {/* <Item
               title="Calendar"

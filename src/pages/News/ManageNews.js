@@ -10,6 +10,7 @@ import { DeleteConfirmModal } from '../../CustomComponents/DeleteConfirmModal';
 import Header from '../../components/Header';
 import { useNavigate } from 'react-router-dom';
 import CustomLoader from '../../CustomComponents/loader/CustomLoader';
+import ImageInDataTable from '../../CustomComponents/ImageInDataTable';
 
 
 const ManageNews = () => {
@@ -52,12 +53,7 @@ const ManageNews = () => {
             apiData = res?.data?.map((item, i) => ({
                 id: i + 1,
                 sl: i + 1,
-                image: < img
-                    src={item?.image}
-                    className="img-fluid m-1"
-                    alt="Responsive image"
-                    style={{ height: "5rem", width: "5rem" }}
-                />,
+                image: <ImageInDataTable src={item?.image} />,
                 link: item?.link,
                 action: <EditDeleteIcon
                     onClickEdit={(e) => handleEdit(item?._id)}
