@@ -1,8 +1,6 @@
-import { useTheme } from '@emotion/react';
 import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
-import { tokens } from '../../theme';
 import HttpClient from '../../utils/HttpClient';
 import toast from 'react-hot-toast';
 import EditDeleteIcon from '../../CustomComponents/EditDeleteIcon';
@@ -12,9 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import CustomLoader from '../../CustomComponents/loader/CustomLoader';
 
 
-const ManageCAtegory = () => {
-    const theme = useTheme();
-
+const ManageMedia = () => {
     const navigate = useNavigate();
 
     const [tableData, setTableData] = useState([]);
@@ -26,7 +22,7 @@ const ManageCAtegory = () => {
             selector: row => row.sl,
         },
         {
-            name: 'Category Name',
+            name: 'Media Name',
             selector: row => row.name,
         },
         {
@@ -36,9 +32,9 @@ const ManageCAtegory = () => {
     ];
 
     // fetch Category DAta
-    const getCategoryData = async () => {
+    const getMediaData = async () => {
         setIsLoading(true);
-        const res = await HttpClient.requestData('view-category', "GET", {});
+        const res = await HttpClient.requestData('view-media', "GET", {});
         // console.log("resGetCat", res)
         let apiData = []
         if (res && res?.status) {
@@ -60,17 +56,17 @@ const ManageCAtegory = () => {
 
     // edit
     const handleEdit = (id) => {
-        navigate("/edit-category/" + id)
+        navigate("/edit-media/" + id)
     }
 
     // delete
     const handleDelete = (id) => {
         const del = async () => {
             setIsLoading(true);
-            const res = await HttpClient.requestData("delete-category/" + id, "DELETE")
+            const res = await HttpClient.requestData("delete-media/" + id, "DELETE")
             if (res && res?.status) {
-                getCategoryData();
-                toast.success("Work Deleted Successfully");
+                getMediaData();
+                toast.success("Media Deleted Successfully");
             } else {
                 toast.error(res?.message || "Something Wrong");
             }
@@ -81,7 +77,7 @@ const ManageCAtegory = () => {
 
 
     useEffect(() => {
-        getCategoryData();
+        getMediaData();
     }, [])
 
     return (
@@ -89,7 +85,7 @@ const ManageCAtegory = () => {
             <Box m="12px">
                 <CustomLoader loading={isLoading} />
 
-                <Header title="MANAGE CATEGORY" subtitle="" />
+                <Header title="MANAGE MEDIA" subtitle="" />
 
                 <div>
                     <DataTable
@@ -105,4 +101,5 @@ const ManageCAtegory = () => {
     )
 }
 
-export default ManageCAtegory
+export default ManageMedia
+

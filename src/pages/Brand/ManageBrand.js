@@ -1,8 +1,6 @@
-import { useTheme } from '@emotion/react';
 import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
-import { tokens } from '../../theme';
 import HttpClient from '../../utils/HttpClient';
 import toast from 'react-hot-toast';
 import EditDeleteIcon from '../../CustomComponents/EditDeleteIcon';
@@ -10,11 +8,10 @@ import { DeleteConfirmModal } from '../../CustomComponents/DeleteConfirmModal';
 import Header from '../../components/Header';
 import { useNavigate } from 'react-router-dom';
 import CustomLoader from '../../CustomComponents/loader/CustomLoader';
+import ImageInDataTable from '../../CustomComponents/ImageInDataTable';
 
 
-const ManageCAtegory = () => {
-    const theme = useTheme();
-
+const ManageBrand = () => {
     const navigate = useNavigate();
 
     const [tableData, setTableData] = useState([]);
@@ -26,8 +23,12 @@ const ManageCAtegory = () => {
             selector: row => row.sl,
         },
         {
-            name: 'Category Name',
+            name: 'Brand Name',
             selector: row => row.name,
+        },
+        {
+            name: 'Image',
+            selector: row => row.image,
         },
         {
             name: 'Action',
@@ -36,9 +37,9 @@ const ManageCAtegory = () => {
     ];
 
     // fetch Category DAta
-    const getCategoryData = async () => {
+    const getBrandData = async () => {
         setIsLoading(true);
-        const res = await HttpClient.requestData('view-category', "GET", {});
+        const res = await HttpClient.requestData('view-brand', "GET", {});
         // console.log("resGetCat", res)
         let apiData = []
         if (res && res?.status) {
@@ -47,6 +48,7 @@ const ManageCAtegory = () => {
                 id: i + 1,
                 sl: i + 1,
                 name: item?.name,
+                image: <img style={{ height:"4rem" , width:"4rem" , margin:"4px" , borderRadius:"5px"}}src={item?.image} />,
                 action: <EditDeleteIcon
                     onClickEdit={(e) => handleEdit(item?._id)}
                     onClickDelete={(e) => handleDelete(item?._id)}
@@ -60,17 +62,17 @@ const ManageCAtegory = () => {
 
     // edit
     const handleEdit = (id) => {
-        navigate("/edit-category/" + id)
+        navigate("/edit-brand/" + id)
     }
 
     // delete
     const handleDelete = (id) => {
         const del = async () => {
             setIsLoading(true);
-            const res = await HttpClient.requestData("delete-category/" + id, "DELETE")
+            const res = await HttpClient.requestData("delete-brand/" + id, "DELETE")
             if (res && res?.status) {
-                getCategoryData();
-                toast.success("Work Deleted Successfully");
+                getBrandData();
+                toast.success("Brand Deleted Successfully");
             } else {
                 toast.error(res?.message || "Something Wrong");
             }
@@ -81,7 +83,7 @@ const ManageCAtegory = () => {
 
 
     useEffect(() => {
-        getCategoryData();
+        getBrandData();
     }, [])
 
     return (
@@ -89,7 +91,7 @@ const ManageCAtegory = () => {
             <Box m="12px">
                 <CustomLoader loading={isLoading} />
 
-                <Header title="MANAGE CATEGORY" subtitle="" />
+                <Header title="MANAGE BRAND" subtitle="" />
 
                 <div>
                     <DataTable
@@ -105,4 +107,4 @@ const ManageCAtegory = () => {
     )
 }
 
-export default ManageCAtegory
+export default ManageBrand

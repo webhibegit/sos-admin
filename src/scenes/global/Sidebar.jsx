@@ -21,6 +21,8 @@ import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import CategoryIcon from '@mui/icons-material/Category';
 import FollowTheSignsIcon from '@mui/icons-material/FollowTheSigns';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
+import FactoryIcon from '@mui/icons-material/Factory';
+import MovieIcon from '@mui/icons-material/Movie';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -60,6 +62,57 @@ const sidebarItems = [
     ]
   },
 
+  //Brand
+  {
+    heading: "Brand",
+    subHeading: [
+      {
+        title: "Add Brand",
+        link: "/add-brand",
+        icon: <CategoryIcon />
+      },
+      {
+        title: "Manage Brand",
+        link: "/manage-brand",
+        icon: <CategoryIcon />
+      },
+    ]
+  },
+
+  //Industry
+  {
+    heading: "Industry",
+    subHeading: [
+      {
+        title: "Add Industry",
+        link: "/add-industry",
+        icon: <FactoryIcon />
+      },
+      {
+        title: "Manage Industry",
+        link: "/manage-industry",
+        icon: <FactoryIcon />
+      },
+    ]
+  },
+
+  //Media
+  {
+    heading: "Media",
+    subHeading: [
+      {
+        title: "Add Media",
+        link: "/add-media",
+        icon: <MovieIcon />
+      },
+      {
+        title: "Manage Media",
+        link: "/manage-media",
+        icon: <MovieIcon />
+      },
+    ]
+  },
+
   // work
   {
     heading: "Work",
@@ -77,7 +130,7 @@ const sidebarItems = [
     ]
   },
 
-  // work
+  // News
   {
     heading: "News",
     subHeading: [
@@ -93,6 +146,24 @@ const sidebarItems = [
       },
     ]
   },
+
+  //Case Study
+  {
+    heading: "Case Study",
+    subHeading: [
+      {
+        title: "Add Case Study",
+        link: "/add-case-study",
+        icon: <NewspaperIcon />
+      },
+      {
+        title: "Manage Case Study",
+        link: "/manage-case-study",
+        icon: <NewspaperIcon />
+      },
+    ]
+  },
+
 
 ]
 

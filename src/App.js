@@ -19,18 +19,30 @@ import AddCategory from "./pages/Category/AddCategory";
 import ManageCAtegory from "./pages/Category/ManageCAtegory";
 import NotFoundPage from "./pages/NotFound/NotFoundPage";
 import AddWork from "./pages/Work/AddWork";
+import AddIndustry from "./pages/Industry/AddIndustry";
+import AddMedia from "./pages/Media/AddMedia";
 import ManageWork from "./pages/Work/ManageWork";
+import ManageIndustry from "./pages/Industry/ManageIndustry";
+import ManageMedia from "./pages/Media/ManageMedia";
 import { Toaster } from "react-hot-toast";
 import Layout from "./Layout/Layout";
 import Login from "./Authentication/Login";
 import PrivateRouter from "./privateRouter/PrivateRouter";
 import EditCategory from "./pages/Category/EditCategory";
 import EditWork from "./pages/Work/EditWork";
+import EditIndustry from "./pages/Industry/EditIndustry";
+import EditMedia from "./pages/Media/EditMedia";
 import AddNews from "./pages/News/AddNews";
 import ManageNews from "./pages/News/ManageNews";
 import EditNews from "./pages/News/EditNews";
 
 import './Custom.css'
+import AddBrand from "./pages/Brand/AddBrand";
+import ManageBrand from "./pages/Brand/ManageBrand";
+import EditBrand from "./pages/Brand/EditBrand";
+import AddCaseStudy from "./pages/Case Study/AddCaseStudy";
+import ManageCaseStudy from "./pages/Case Study/ManageCaseStudy";
+import EditCaseStudy from "./pages/Case Study/EditCaseStudy";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -61,6 +73,18 @@ function App() {
               <Route path="/manage-category" element={<ManageCAtegory />} />
               <Route path="/edit-category/:id" element={<EditCategory />} />
 
+              <Route path="/add-brand" element={<AddBrand/>} />
+              <Route path="/manage-brand" element={<ManageBrand />} />
+              <Route path="/edit-brand/:id" element={<EditBrand />} />
+
+              <Route path="/add-industry" element={<AddIndustry/>} />
+              <Route path="/manage-industry" element={<ManageIndustry />} />
+              <Route path="/edit-industry/:id" element={<EditIndustry />} />
+
+              <Route path="/add-media" element={<AddMedia/>} />
+              <Route path="/manage-media" element={<ManageMedia />} />
+              <Route path="/edit-media/:id" element={<EditMedia />} />
+
               <Route path="/add-work" element={<AddWork />} />
               <Route path="/manage-work" element={<ManageWork />} />
               <Route path="/edit-work/:id" element={<EditWork />} />
@@ -68,6 +92,10 @@ function App() {
               <Route path="/add-news" element={<AddNews />} />
               <Route path="/manage-news" element={<ManageNews />} />
               <Route path="/edit-news/:id" element={<EditNews />} />
+
+              <Route path="/add-case-study" element={<AddCaseStudy />} />
+              <Route path="/manage-case-study" element={<ManageCaseStudy />} />
+              <Route path="/edit-case-study/:id" element={<EditCaseStudy />} />
 
               <Route path="*" element={<NotFoundPage />} />
 

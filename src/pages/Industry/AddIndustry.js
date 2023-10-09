@@ -1,11 +1,11 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Header from "../../components/Header";
 import { useState } from "react";
 import HttpClient from "../../utils/HttpClient";
 import toast from "react-hot-toast";
 import CustomLoader from "../../CustomComponents/loader/CustomLoader";
 
-const AddCategory = () => {
+const AddIndustry= () => {
     const [catName, setCatName] = useState()
     const [isLoading, setIsLoading] = useState(false);
 
@@ -15,19 +15,19 @@ const AddCategory = () => {
         e.preventDefault();
 
         if (!catName) {
-            return toast.error("Category Name is Required");
+            return toast.error("Industry Name is Required");
         }
 
         const data = {
             name: catName
         }
         setIsLoading(true);
-        const res = await HttpClient.requestData("add-category", "POST", data);
+        const res = await HttpClient.requestData("add-industry", "POST", data);
         // console.log("resCat", res)
         if (res && res?.status) {
-            toast.success("Category Added Successfully");
+            toast.success("Industry Added Successfully");
             setCatName("");
-            // navigate('/manage-category');
+            // navigate('/manage-industry');
             setIsLoading(false);
         } else {
             toast.error(res?.message);
@@ -35,7 +35,7 @@ const AddCategory = () => {
     };
 
     const handleChange = (e) => {
-        // console.log("pallab", e.target.value)
+        // console.log("supriti", e.target.value)
         setCatName(e.target.value)
     }
 
@@ -44,19 +44,19 @@ const AddCategory = () => {
 
             <CustomLoader loading={isLoading} />
 
-            <Header title="ADD CATEGORY" subtitle="" />
+            <Header title="ADD INDUSTRY" subtitle="" />
 
             <form>
                 <div className="row">
                     <div className="col">
-                        <label for="formGroupExampleInput">Category Name</label>
+                        <label for="formGroupExampleInput">Industry Name</label>
                         <input
                             type="text"
                             className="form-control"
-                            placeholder="Category Name"
+                            placeholder="Industry Name"
                             onChange={handleChange}
                             value={catName}
-                            name="category"
+                            name="industry"
                         />
                     </div>
                 </div>
@@ -68,7 +68,7 @@ const AddCategory = () => {
                         variant="contained"
                         onClick={(e) => handleSubmit(e)}
                     >
-                        Add Category
+                        Add Industry
                     </Button>
                 </Box>
             </form>
@@ -77,4 +77,5 @@ const AddCategory = () => {
 };
 
 
-export default AddCategory;
+export default AddIndustry;
+
