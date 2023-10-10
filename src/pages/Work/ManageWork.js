@@ -41,6 +41,18 @@ const ManageWork = () => {
             selector: row => row.subtitle,
         },
         {
+            name: 'Media',
+            selector: row => row.media,
+        },
+        {
+            name: 'Industry',
+            selector: row => row.industry,
+        },
+        {
+            name: 'Language',
+            selector: row => row.language,
+        },
+        {
             name: 'Priority',
             selector: row => row.priority,
         },
@@ -67,6 +79,9 @@ const ManageWork = () => {
                 name: item?.catName,
                 title: item?.title,
                 subtitle: item?.subTitle,
+                media:item?.medianame,
+                industry:item?.Industryname,
+                language:item?.language,
                 priority: item?.priority,
                 image: <ImageInDataTable src={item?.image?.[0]} />,
                 action: <EditDeleteIcon

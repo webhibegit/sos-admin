@@ -45,7 +45,7 @@ const EditIndustry = () => {
     // get single industry data
     const getSingleIndustry = async () => {
         setIsLoading(true);
-        const res = await HttpClient.requestData("view-industry/" + params.id, "GET", {})
+        const res = await HttpClient.requestData("view-single-industry/" + params.id, "GET", {})
         console.log("resSingg", res);
         if (res && res?.status) {
             const sinData = res?.data[0]

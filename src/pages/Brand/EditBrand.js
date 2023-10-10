@@ -21,7 +21,6 @@ const EditBrand = () => {
         if (location?.pathname === "/edit-brand") {
             setName(location.state.name)
             setImage(location.state.image)
-
         }
         console.log("etrt", location.state)
     }, [])
@@ -38,7 +37,6 @@ const EditBrand = () => {
             toast(res?.message)
         }
     }
-
 
 
     // image upload

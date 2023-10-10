@@ -67,18 +67,18 @@ const AddWork = () => {
     }
 
     //get media data
-    // const getMediaData=async ()=>{
-    //     setCatLoader(true)
-    //     const res=await HttpClient.requestData("view-media",'GET',{})
-    //     console.log("fvfvc",res);
-    //     if(res && res.status){
-    //         setCatLoader(false)
-    //         setMediaData(res?.data)
-    //     }else{
-    //         setCatLoader(false);
-    //         toast.error(res?.message || "error")
-    //     }
-    // }
+    const getMediaData = async () => {
+        setCatLoader(true)
+        const res = await HttpClient.requestData("view-media", 'GET', {})
+        console.log("fvfvc", res);
+        if (res && res.status) {
+            setCatLoader(false)
+            setMediaData(res?.data)
+        } else {
+            setCatLoader(false);
+            toast.error(res?.message || "error")
+        }
+    }
 
     // video upload
     const handleVideoUpload = async (e) => {
@@ -175,8 +175,8 @@ const AddWork = () => {
             catID: formValue.catID,
             title: formValue.title,
             subTitle: formValue.subTitle,
-            media: formValue.media,
-            industry: formValue.industry,
+            mediaID: formValue.media,
+            industryID: formValue.industry,
             language: formValue.language,
             description: formValue.description,
             video: formValue.video,
@@ -200,7 +200,7 @@ const AddWork = () => {
     useEffect(() => {
         getCategoryData();
         getIndustryData();
-        // getMediaData();
+        getMediaData();
     }, [])
 
 
@@ -308,19 +308,33 @@ const AddWork = () => {
                         <div>
                             <label htmlFor="formGroupExampleInput">Language</label>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="language" id="inlineRadio1" value="option1" />
-                            <label class="form-check-label" for="inlineRadio1">Bengali</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="language" id="inlineRadio2" value="option2" />
-                            <label class="form-check-label" for="inlineRadio2">Hindi</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="language" id="inlineRadio3" value="option3" />
-                            <label class="form-check-label" for="inlineRadio3">English</label>
+                        <div className="d-flex flex-wrap">
+                            <div classname="form-check form-check-inline">
+                                <input
+                                    classname="form-check-input"
+                                    type="radio"
+                                    name="language"
+                                    id="inlineRadio1"
+                                    value="Bengali"
+                                    onChange={() => setFormValue(prev => ({ ...prev, language: "Bengali" }))}
+                                />
+                                <label classname="form-check-label" for="inlineRadio1">Bengali</label>
+                            </div>
+
+                            <div classname="form-check form-check-inline">
+                                <input
+                                    classname="form-check-input"
+                                    type="radio"
+                                    name="language"
+                                    id="inlineRadio3"
+                                    value="English"
+                                    onChange={() => setFormValue(prev => ({ ...prev, language: "English" }))}
+                                />
+                                <label classname="form-check-label" for="inlineRadio3">English</label>
+                            </div>
                         </div>
                     </div>
+
 
 
                     <div className="col">

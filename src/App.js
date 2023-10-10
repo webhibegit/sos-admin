@@ -43,6 +43,7 @@ import EditBrand from "./pages/Brand/EditBrand";
 import AddCaseStudy from "./pages/Case Study/AddCaseStudy";
 import ManageCaseStudy from "./pages/Case Study/ManageCaseStudy";
 import EditCaseStudy from "./pages/Case Study/EditCaseStudy";
+import GoToTop from "./CustomComponents/GoToTop";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -58,7 +59,7 @@ function App() {
           position="top-center"
           reverseOrder={false}
         />
-
+        <GoToTop />
 
         {/* <Sidebar isSidebar={isSidebar} /> */}
         {/* <main className="content"> */}
@@ -69,6 +70,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/" element={<Dashboard />} />
 
+              {/* category change to brand */}
               <Route path="/add-category" element={<AddCategory />} />
               <Route path="/manage-category" element={<ManageCAtegory />} />
               <Route path="/edit-category/:id" element={<EditCategory />} />
@@ -77,11 +79,11 @@ function App() {
               <Route path="/manage-brand" element={<ManageBrand />} />
               <Route path="/edit-brand" element={<EditBrand />} /> */}
 
-              <Route path="/add-industry" element={<AddIndustry/>} />
+              <Route path="/add-industry" element={<AddIndustry />} />
               <Route path="/manage-industry" element={<ManageIndustry />} />
               <Route path="/edit-industry/:id" element={<EditIndustry />} />
 
-              <Route path="/add-media" element={<AddMedia/>} />
+              <Route path="/add-media" element={<AddMedia />} />
               <Route path="/manage-media" element={<ManageMedia />} />
               <Route path="/edit-media/:id" element={<EditMedia />} />
 
