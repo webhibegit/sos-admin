@@ -13,6 +13,9 @@ const EditIndustry = () => {
     const [catName, setCatName] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
+    useEffect(() => {
+        getSingleIndustry();
+    }, [])
 
     // submit
     const handleSubmit = async (e) => {
@@ -27,7 +30,7 @@ const EditIndustry = () => {
         }
 
         setIsLoading(true);
-        const res = await HttpClient.requestData("update-brand/" + params.id, "PUT", data);
+        const res = await HttpClient.requestData("update-industry/" + params.id, "PUT", data);
         if (res && res?.status) {
             toast.success("Industry Updated Successfully")
             navigate('/manage-industry');
@@ -39,10 +42,10 @@ const EditIndustry = () => {
 
     };
 
-    // get single Category data
+    // get single industry data
     const getSingleIndustry = async () => {
         setIsLoading(true);
-        const res = await HttpClient.requestData("view-single-industry/" + params.id, "GET", {})
+        const res = await HttpClient.requestData("view-industry/" + params.id, "GET", {})
         console.log("resSingg", res);
         if (res && res?.status) {
             const sinData = res?.data[0]
@@ -58,9 +61,7 @@ const EditIndustry = () => {
         setCatName(e.target.value)
     }
 
-    useEffect(() => {
-        getSingleIndustry();
-    }, [])
+   
 
     return (
         <Box m="20px">

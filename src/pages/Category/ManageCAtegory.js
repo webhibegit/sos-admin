@@ -26,7 +26,7 @@ const ManageCAtegory = () => {
             selector: row => row.sl,
         },
         {
-            name: 'Category Name',
+            name: 'Brand Name',
             selector: row => row.name,
         },
         {
@@ -70,7 +70,7 @@ const ManageCAtegory = () => {
             const res = await HttpClient.requestData("delete-category/" + id, "DELETE")
             if (res && res?.status) {
                 getCategoryData();
-                toast.success("Work Deleted Successfully");
+                toast.success("Brand Deleted Successfully");
             } else {
                 toast.error(res?.message || "Something Wrong");
             }
@@ -89,7 +89,7 @@ const ManageCAtegory = () => {
             <Box m="12px">
                 <CustomLoader loading={isLoading} />
 
-                <Header title="MANAGE CATEGORY" subtitle="" />
+                <Header title="MANAGE BRAND" subtitle="" />
 
                 <div>
                     <DataTable

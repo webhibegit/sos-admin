@@ -7,12 +7,9 @@ import { useEffect, useState } from "react";
 import HttpClient, { IMAGE_URL } from "../../utils/HttpClient";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { MenuItem } from "react-pro-sidebar";
 import CustomLoader from "../../CustomComponents/loader/CustomLoader";
 
 const AddWork = () => {
-    const isNonMobile = useMediaQuery("(min-width:600px)");
-    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
 
     const [catName, setCatName] = useState()
@@ -20,6 +17,9 @@ const AddWork = () => {
         catID: "",
         title: "",
         subTitle: "",
+        media: "",
+        industry: "",
+        language: "",
         priority: "",
         description: "",
         video: "",
@@ -27,6 +27,8 @@ const AddWork = () => {
     }
     const [formValue, setFormValue] = useState(initValue);
     const [catData, setCatData] = useState([]);
+    const [indusData, setIndusData] = useState([])
+    const [mediaData, setMediaData] = useState([])
     const [imageLoader, setImgLoader] = useState(false);
     const [catLoadet, setCatLoader] = useState(false)
 
@@ -48,9 +50,35 @@ const AddWork = () => {
             setCatData(res?.data);
         } else {
             setCatLoader(false);
-            toast(res?.message)
+            toast.error(res?.message || "error")
         }
     }
+
+    //get industry data
+    const getIndustryData = async () => {
+        const res = await HttpClient.requestData("view-industry", 'GET', {})
+        console.log("fvfvc", res);
+        if (res && res.status) {
+            setCatLoader(false)
+            setIndusData(res?.data)
+        } else {
+            toast.error(res?.message || "error")
+        }
+    }
+
+    //get media data
+    // const getMediaData=async ()=>{
+    //     setCatLoader(true)
+    //     const res=await HttpClient.requestData("view-media",'GET',{})
+    //     console.log("fvfvc",res);
+    //     if(res && res.status){
+    //         setCatLoader(false)
+    //         setMediaData(res?.data)
+    //     }else{
+    //         setCatLoader(false);
+    //         toast.error(res?.message || "error")
+    //     }
+    // }
 
     // video upload
     const handleVideoUpload = async (e) => {
@@ -91,7 +119,7 @@ const AddWork = () => {
     // validate
     const validate = () => {
         if (!formValue?.catID) {
-            toast.error("Category Name is required");
+            toast.error("Brand Name is required");
             return true
         }
         if (!formValue?.title) {
@@ -102,6 +130,18 @@ const AddWork = () => {
             toast.error("Subtitle is required");
             return true
         }
+        if (!formValue?.media) {
+            toast.error("Media is required");
+            return true
+        }
+        if (!formValue?.industry) {
+            toast.error("Industry is required");
+            return true
+        }
+        if (!formValue?.language) {
+            toast.error("Language is required");
+            return true
+        }
         if (!formValue?.priority) {
             toast.error("Priority is required");
             return true
@@ -110,14 +150,14 @@ const AddWork = () => {
             toast.error("Description is required");
             return true
         }
-        if (!formValue?.video) {
-            toast.error("Video Link is required");
-            return true
-        }
-        if (formValue?.image.length === 0) {
-            toast.error("Image is required");
-            return true
-        }
+        // if (!formValue?.video) {
+        //     toast.error("Video Link is required");
+        //     return true
+        // }
+        // if (formValue?.image.length === 0) {
+        //     toast.error("Image is required");
+        //     return true
+        // }
 
         return false
     }
@@ -135,6 +175,9 @@ const AddWork = () => {
             catID: formValue.catID,
             title: formValue.title,
             subTitle: formValue.subTitle,
+            media: formValue.media,
+            industry: formValue.industry,
+            language: formValue.language,
             description: formValue.description,
             video: formValue.video,
             image: formValue.image,
@@ -156,6 +199,8 @@ const AddWork = () => {
 
     useEffect(() => {
         getCategoryData();
+        getIndustryData();
+        // getMediaData();
     }, [])
 
 
@@ -168,7 +213,7 @@ const AddWork = () => {
             <form>
                 <div className="row">
                     <div className="col">
-                        <label htmlFor="formGroupExampleInput">Select Category</label>
+                        <label htmlFor="formGroupExampleInput">Select Brand</label>
                         <select
                             class="form-control"
                             aria-label="Default select example"
@@ -176,7 +221,7 @@ const AddWork = () => {
                             value={formValue.catID}
                             onChange={handleChange}
                         >
-                            <option value={""} disabled>Selecet Category</option>
+                            <option value={""} disabled>Select Brand</option>
                             {catData.map((item, i) =>
                                 <option key={i} value={item?._id}>{item?.name}</option>
                             )
@@ -221,7 +266,62 @@ const AddWork = () => {
                     </div>
                 </div>
 
+
                 <div className="row">
+                    <div className="col">
+                        <label htmlFor="formGroupExampleInput">Select Media</label>
+                        <select
+                            class="form-control"
+                            aria-label="Default select example"
+                            name="media"
+                            value={formValue.media}
+                            onChange={handleChange}
+                        >
+                            <option value={""} disabled>Select Media</option>
+                            {mediaData.map((item, i) =>
+                                <option key={i} value={item?._id}>{item?.name}</option>
+                            )
+                            }
+                        </select>
+                    </div>
+                    <div className="col">
+                        <label htmlFor="formGroupExampleInput">Select Industry</label>
+                        <select
+                            class="form-control"
+                            aria-label="Default select example"
+                            name="industry"
+                            value={formValue.industry}
+                            onChange={handleChange}
+                        >
+                            <option value={""} disabled>Select Industry</option>
+                            {indusData.map((item, i) =>
+                                <option key={i} value={item?._id}>{item?.name}</option>
+                            )
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div className="row">
+
+                    <div className="col">
+                        <div>
+                            <label htmlFor="formGroupExampleInput">Language</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="language" id="inlineRadio1" value="option1" />
+                            <label class="form-check-label" for="inlineRadio1">Bengali</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="language" id="inlineRadio2" value="option2" />
+                            <label class="form-check-label" for="inlineRadio2">Hindi</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="language" id="inlineRadio3" value="option3" />
+                            <label class="form-check-label" for="inlineRadio3">English</label>
+                        </div>
+                    </div>
+
 
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Priority</label>
@@ -234,7 +334,9 @@ const AddWork = () => {
                             onChange={handleChange}
                         />
                     </div>
+                </div>
 
+                <div className="row">
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Image</label>
                         <input
@@ -281,10 +383,10 @@ const AddWork = () => {
                             }
                         </div>
 
+                        {/* </div> */}
                     </div>
-                </div>
 
-                <div className="row">
+                    {/* <div className="row"> */}
                     <div className="col-sm-6">
                         <label htmlFor="formGroupExampleInput">Video Link</label>
                         <input

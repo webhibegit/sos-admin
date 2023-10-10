@@ -8,7 +8,6 @@ import { DeleteConfirmModal } from '../../CustomComponents/DeleteConfirmModal';
 import Header from '../../components/Header';
 import { useNavigate } from 'react-router-dom';
 import CustomLoader from '../../CustomComponents/loader/CustomLoader';
-import ImageInDataTable from '../../CustomComponents/ImageInDataTable';
 
 
 const ManageBrand = () => {
@@ -48,9 +47,21 @@ const ManageBrand = () => {
                 id: i + 1,
                 sl: i + 1,
                 name: item?.name,
-                image: <img style={{ height:"4rem" , width:"4rem" , margin:"4px" , borderRadius:"5px"}}src={item?.image} />,
+                image:
+                    item?.image ? (
+                        <>
+                            <img style={{ height: "4rem", width: "4rem", margin: "4px", borderRadius: "5px" }} src={item?.image} />,
+                        </>
+                    ) : (
+                        <>
+                            <img
+                                style={{ height: "5rem", width: "5rem" }}
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png" />
+                        </>
+                    ),
+                // <img style={{ height:"4rem" , width:"4rem" , margin:"4px" , borderRadius:"5px"}}src={item?.image} />,
                 action: <EditDeleteIcon
-                    onClickEdit={(e) => handleEdit(item?._id)}
+                    onClickEdit={(e) => handleEdit(item)}
                     onClickDelete={(e) => handleDelete(item?._id)}
                 />
             }));
@@ -61,10 +72,9 @@ const ManageBrand = () => {
     }
 
     // edit
-    const handleEdit = (id) => {
-        navigate("/edit-brand/" + id)
+    const handleEdit = (ele) => {
+        navigate("/edit-brand", { state: ele })
     }
-
     // delete
     const handleDelete = (id) => {
         const del = async () => {

@@ -73,9 +73,9 @@ function App() {
               <Route path="/manage-category" element={<ManageCAtegory />} />
               <Route path="/edit-category/:id" element={<EditCategory />} />
 
-              <Route path="/add-brand" element={<AddBrand/>} />
+              {/* <Route path="/add-brand" element={<AddBrand/>} />
               <Route path="/manage-brand" element={<ManageBrand />} />
-              <Route path="/edit-brand/:id" element={<EditBrand />} />
+              <Route path="/edit-brand" element={<EditBrand />} /> */}
 
               <Route path="/add-industry" element={<AddIndustry/>} />
               <Route path="/manage-industry" element={<ManageIndustry />} />

@@ -26,6 +26,8 @@ const EditWork = () => {
     }
     const [formValue, setFormValue] = useState(initValue);
     const [catData, setCatData] = useState([]);
+    const [indusData, setIndusData] = useState([])
+    const [mediaData, setMediaData] = useState([])
     const [imageLoader, setImgLoader] = useState(false);
     const [catLoadet, setCatLoader] = useState(false);
     const [singleWork, setSingleWork] = useState({});
@@ -52,6 +54,19 @@ const EditWork = () => {
             toast(res?.message)
         }
     }
+
+    //get industry data
+    const getIndustryData = async () => {
+        const res = await HttpClient.requestData("view-industry", 'GET', {})
+        console.log("fvfvc", res);
+        if (res && res.status) {
+            setCatLoader(false)
+            setIndusData(res?.data)
+        } else {
+            toast.error(res?.message || "error")
+        }
+    }
+
 
     // get single work data
     const getSingleWork = async () => {
@@ -102,7 +117,7 @@ const EditWork = () => {
     // validate
     const validate = () => {
         if (!formValue?.catID) {
-            toast.error("Category Name is required");
+            toast.error("Brand Name is required");
             return true
         }
         if (!formValue?.title) {
@@ -166,6 +181,7 @@ const EditWork = () => {
 
     useEffect(() => {
         getCategoryData();
+        getIndustryData();
         getSingleWork();
     }, [])
 
@@ -179,7 +195,7 @@ const EditWork = () => {
             <form>
                 <div className="row">
                     <div className="col">
-                        <label htmlFor="formGroupExampleInput">Select Category</label>
+                        <label htmlFor="formGroupExampleInput">Select Brand</label>
                         <select
                             class="form-control"
                             aria-label="Default select example"
@@ -187,9 +203,8 @@ const EditWork = () => {
                             value={formValue.catID}
                             onChange={handleChange}
                         >
-                            {/* {catLoadet && <option value={""} disabled>Loading...</option>} */}
-                            <option value={""} disabled>Selecet Category</option>
-                            {catData?.map((item, i) =>
+                            <option value={""} disabled>Select Brand</option>
+                            {catData.map((item, i) =>
                                 <option key={i} value={item?._id}>{item?.name}</option>
                             )
                             }
@@ -233,11 +248,67 @@ const EditWork = () => {
                     </div>
                 </div>
 
+
                 <div className="row">
+                    <div className="col">
+                        <label htmlFor="formGroupExampleInput">Select Media</label>
+                        <select
+                            class="form-control"
+                            aria-label="Default select example"
+                            name="media"
+                            value={formValue.media}
+                            onChange={handleChange}
+                        >
+                            <option value={""} disabled>Select Media</option>
+                            {mediaData.map((item, i) =>
+                                <option key={i} value={item?._id}>{item?.name}</option>
+                            )
+                            }
+                        </select>
+                    </div>
+                    <div className="col">
+                        <label htmlFor="formGroupExampleInput">Select Industry</label>
+                        <select
+                            class="form-control"
+                            aria-label="Default select example"
+                            name="industry"
+                            value={formValue.industry}
+                            onChange={handleChange}
+                        >
+                            <option value={""} disabled>Select Industry</option>
+                            {indusData.map((item, i) =>
+                                <option key={i} value={item?._id}>{item?.name}</option>
+                            )
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div className="row">
+
+                    <div className="col">
+                        <div>
+                            <label htmlFor="formGroupExampleInput">Language</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="language" id="inlineRadio1" value="option1" />
+                            <label class="form-check-label" for="inlineRadio1">Bengali</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="language" id="inlineRadio2" value="option2" />
+                            <label class="form-check-label" for="inlineRadio2">Hindi</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="language" id="inlineRadio3" value="option3" />
+                            <label class="form-check-label" for="inlineRadio3">English</label>
+                        </div>
+                    </div>
+
+
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Priority</label>
                         <input
-                            type="text"
+                            type="number"
                             className="form-control"
                             placeholder="Priority"
                             name="priority"
@@ -245,7 +316,9 @@ const EditWork = () => {
                             onChange={handleChange}
                         />
                     </div>
+                </div>
 
+                <div className="row">
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Image</label>
                         <input
@@ -263,44 +336,39 @@ const EditWork = () => {
                             (700 x 700 px)
                         </div>
 
-                        {/* image */}
+                        {/* picture */}
                         <div>
-                            {imageLoader
-                                ?
+                            {imageLoader &&
                                 <div>
                                     <Skeleton variant="rectangular" width={100} height={100} />
                                 </div>
-                                :
-                                <>                                {formValue?.image?.map((item, i) =>
-                                    <span key={i}>
-                                        < img
-                                            src={item}
-                                            className="img-fluid m-1"
-                                            alt="Responsive image"
-                                            style={{ height: "5rem", width: "5rem" }}
-                                        />
-                                        <span
-                                            style={{ fontSize: "25px", cursor: "pointer" }}
-                                            onClick={() => {
-                                                let imgArr = formValue?.image.filter((item, ind) => ind !== i)
-                                                setFormValue(prev => ({ ...prev, image: imgArr }))
-                                            }}
-                                        >
-                                            x
-                                        </span>
+                            }
+                            {formValue?.image.map((item, i) =>
+                                <span key={i}>
+                                    < img
+                                        src={item}
+                                        className="img-fluid m-1"
+                                        alt="Responsive image"
+                                        style={{ height: "5rem", width: "5rem" }}
+                                    />
+                                    <span
+                                        style={{ fontSize: "25px", cursor: "pointer" }}
+                                        onClick={() => {
+                                            let imgArr = formValue?.image.filter((item, ind) => ind !== i)
+                                            setFormValue(prev => ({ ...prev, image: imgArr }))
+                                        }}
+                                    >
+                                        x
                                     </span>
-                                )
-                                }
-                                </>
-
+                                </span>
+                            )
                             }
                         </div>
 
-
+                        {/* </div> */}
                     </div>
-                </div>
 
-                <div className="row">
+                    {/* <div className="row"> */}
                     <div className="col-sm-6">
                         <label htmlFor="formGroupExampleInput">Video Link</label>
                         <input
@@ -322,7 +390,7 @@ const EditWork = () => {
                         variant="contained"
                         onClick={(e) => handleSubmit(e)}
                     >
-                        Update Work
+                        Work Work
                     </Button>
                 </Box>
             </form>

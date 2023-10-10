@@ -29,7 +29,7 @@ const ManageWork = () => {
             selector: row => row.sl,
         },
         {
-            name: 'Category Name',
+            name: 'Brand Name',
             selector: row => row.name,
         },
         {

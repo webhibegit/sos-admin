@@ -1,11 +1,8 @@
 import { Box, Button, Select, TextField, SelectChangeEvent, InputLabel, Skeleton } from "@mui/material";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
 import HttpClient, { IMAGE_URL } from "../../utils/HttpClient";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { MenuItem } from "react-pro-sidebar";
 import CustomLoader from "../../CustomComponents/loader/CustomLoader";
 
 const AddBrand = () => {
@@ -13,23 +10,10 @@ const AddBrand = () => {
     const [name, setName] = useState("");
     const [image, setImage] = useState("");
 
-    // const [catName, setCatName] = useState()
-    // const initValue = {
-    //     subName: "",
-    //     image: []
-    // }
-    // const [formValue, setFormValue] = useState(initValue);
     const [catData, setCatData] = useState([]);
     const [imageLoader, setImgLoader] = useState(false);
     const [catLoadet, setCatLoader] = useState(false)
 
-    // console.log("formValueddf", formValue)
-
-    // other inputs change
-    // const handleChange = (e) => {
-    //     const { name, value } = e.target
-    //     setFormValue(prev => ({ ...prev, [name]: value }));
-    // }
 
     // get category data
     const getCategoryData = async () => {
@@ -177,6 +161,7 @@ const AddBrand = () => {
                                 </span>
                             )
                             } */}
+
                             {
                                 image && < img
                                     src={image}

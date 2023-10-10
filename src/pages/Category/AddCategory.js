@@ -15,7 +15,7 @@ const AddCategory = () => {
         e.preventDefault();
 
         if (!catName) {
-            return toast.error("Category Name is Required");
+            return toast.error("Brand Name is Required");
         }
 
         const data = {
@@ -25,7 +25,7 @@ const AddCategory = () => {
         const res = await HttpClient.requestData("add-category", "POST", data);
         // console.log("resCat", res)
         if (res && res?.status) {
-            toast.success("Category Added Successfully");
+            toast.success("Brand Added Successfully");
             setCatName("");
             // navigate('/manage-category');
             setIsLoading(false);
@@ -44,16 +44,16 @@ const AddCategory = () => {
 
             <CustomLoader loading={isLoading} />
 
-            <Header title="ADD CATEGORY" subtitle="" />
+            <Header title="ADD BRAND" subtitle="" />
 
             <form>
                 <div className="row">
                     <div className="col">
-                        <label for="formGroupExampleInput">Category Name</label>
+                        <label for="formGroupExampleInput">Brand Name</label>
                         <input
                             type="text"
                             className="form-control"
-                            placeholder="Category Name"
+                            placeholder="Brand Name"
                             onChange={handleChange}
                             value={catName}
                             name="category"
@@ -68,7 +68,7 @@ const AddCategory = () => {
                         variant="contained"
                         onClick={(e) => handleSubmit(e)}
                     >
-                        Add Category
+                        Add Brand
                     </Button>
                 </Box>
             </form>

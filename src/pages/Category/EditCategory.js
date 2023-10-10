@@ -20,7 +20,7 @@ const EditCategory = () => {
         e.preventDefault();
 
         if (!catName) {
-            return toast.error("Category Name is Required");
+            return toast.error("Brand Name is Required");
         }
 
         const data = {
@@ -30,7 +30,7 @@ const EditCategory = () => {
         setIsLoading(true);
         const res = await HttpClient.requestData("update-category/" + params.id, "PUT", data);
         if (res && res?.status) {
-            toast.success("Category Updated Successfully")
+            toast.success("Brand Updated Successfully")
             navigate('/manage-category');
             setIsLoading(false);
         } else {
@@ -67,16 +67,16 @@ const EditCategory = () => {
         <Box m="20px">
             <CustomLoader loading={isLoading} />
 
-            <Header title="Update Category" subtitle="" />
+            <Header title="Update Brand" subtitle="" />
 
             <form>
                 <div className="row">
                     <div className="col">
-                        <label for="formGroupExampleInput">Category Name</label>
+                        <label for="formGroupExampleInput">Brand Name</label>
                         <input
                             type="text"
                             className="form-control"
-                            placeholder="Category Name"
+                            placeholder="Brand Name"
                             onChange={handleChange}
                             value={catName}
                             name="category"
@@ -91,7 +91,7 @@ const EditCategory = () => {
                         variant="contained"
                         onClick={(e) => handleSubmit(e)}
                     >
-                        Update Category
+                        Update Brand
                     </Button>
                 </Box>
             </form>

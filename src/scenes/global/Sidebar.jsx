@@ -47,37 +47,37 @@ const sidebarItems = [
 
   // category
   {
-    heading: "Category",
+    heading: "Brand",
     subHeading: [
       {
-        title: "Add Category",
+        title: "Add Brand",
         link: "/add-category",
         icon: <CategoryIcon />
       },
       {
-        title: "Manage Category",
+        title: "Manage Brand",
         link: "/manage-category",
         icon: <CategoryIcon />
       },
     ]
   },
 
-  //Brand
-  {
-    heading: "Brand",
-    subHeading: [
-      {
-        title: "Add Brand",
-        link: "/add-brand",
-        icon: <CategoryIcon />
-      },
-      {
-        title: "Manage Brand",
-        link: "/manage-brand",
-        icon: <CategoryIcon />
-      },
-    ]
-  },
+  // //Brand
+  // {
+  //   heading: "Brand",
+  //   subHeading: [
+  //     {
+  //       title: "Add Brand",
+  //       link: "/add-brand",
+  //       icon: <CategoryIcon />
+  //     },
+  //     {
+  //       title: "Manage Brand",
+  //       link: "/manage-brand",
+  //       icon: <CategoryIcon />
+  //     },
+  //   ]
+  // },
 
   //Industry
   {
