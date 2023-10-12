@@ -29,10 +29,6 @@ const ManageCaseStudy = () => {
             selector: row => row.sl,
         },
         {
-            name: 'Category Name',
-            selector: row => row.name,
-        },
-        {
             name: 'Title',
             selector: row => row.title,
         },

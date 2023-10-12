@@ -9,12 +9,10 @@ const AddCaseStudy = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const initValue = {
-        catID: "",
         title: "",
         subTitle: "",
         priority: "",
         description: "",
-        video: "",
         image: []
     }
     const [formValue, setFormValue] = useState(initValue);
@@ -30,10 +28,10 @@ const AddCaseStudy = () => {
         setFormValue(prev => ({ ...prev, [name]: value }));
     }
 
-    // get category data
-    const getCategoryData = async () => {
+    // get case-study data
+    const getCaseStudyData = async () => {
         setCatLoader(true)
-        const res = await HttpClient.requestData("view-category", "GET", {});
+        const res = await HttpClient.requestData("view-case-study", "GET", {});
         console.log("resCat", res);
         if (res && res?.status) {
             setCatLoader(false)
@@ -44,18 +42,6 @@ const AddCaseStudy = () => {
         }
     }
 
-    // video upload
-    const handleVideoUpload = async (e) => {
-        // let file = e.target.files[0]
-        // let data = new FormData();
-        // data.append("image", file);
-        // console.log(data, "daaaaa");
-        // let result = await HttpClient.fileUplode(
-        //     "image-upload/product",
-        //     "POST",
-        //     data
-        // );
-    }
 
     // image upload
     const handleImageChange = async (e) => {
@@ -66,7 +52,7 @@ const AddCaseStudy = () => {
             data.append("image", item);
             // console.log(data, "daaaaa");
             setImgLoader(true)
-            let res = await HttpClient.fileUplode("case-study-image-upload", "POST", data);
+            let res = await HttpClient.fileUplode("work-image-upload", "POST", data);
             console.log("resultImg", res);
             if (res && res?.status) {
                 setImgLoader(false)
@@ -82,10 +68,7 @@ const AddCaseStudy = () => {
 
     // validate
     const validate = () => {
-        if (!formValue?.catID) {
-            toast.error("Category Name is required");
-            return true
-        }
+       
         if (!formValue?.title) {
             toast.error("Title is required");
             return true
@@ -102,14 +85,10 @@ const AddCaseStudy = () => {
             toast.error("Description is required");
             return true
         }
-        if (!formValue?.video) {
-            toast.error("Video Link is required");
-            return true
-        }
-        if (formValue?.image.length === 0) {
-            toast.error("Image is required");
-            return true
-        }
+        // if (formValue?.image.length === 0) {
+        //     toast.error("Image is required");
+        //     return true
+        // }
 
         return false
     }
@@ -124,11 +103,9 @@ const AddCaseStudy = () => {
         }
 
         const data = {
-            catID: formValue.catID,
             title: formValue.title,
             subTitle: formValue.subTitle,
             description: formValue.description,
-            video: formValue.video,
             image: formValue.image,
             priority: formValue.priority
         }
@@ -136,7 +113,7 @@ const AddCaseStudy = () => {
         const res = await HttpClient.requestData("add-case-study", "POST", data);
         // console.log("resCat", res)
         if (res && res?.status) {
-            toast.success("Case Study Added Successfully");
+            toast.success(res?.message);
             setFormValue(initValue);
             // navigate('/manage-case-study');
             setIsLoading(false);
@@ -147,7 +124,7 @@ const AddCaseStudy = () => {
     };
 
     useEffect(() => {
-        getCategoryData();
+        getCaseStudyData();
     }, [])
 
 
@@ -159,22 +136,7 @@ const AddCaseStudy = () => {
 
             <form>
                 <div className="row">
-                    <div className="col">
-                        <label htmlFor="formGroupExampleInput">Select Category</label>
-                        <select
-                            class="form-control"
-                            aria-label="Default select example"
-                            name="catID"
-                            value={formValue.catID}
-                            onChange={handleChange}
-                        >
-                            <option value={""} disabled>Selecet Category</option>
-                            {catData.map((item, i) =>
-                                <option key={i} value={item?._id}>{item?.name}</option>
-                            )
-                            }
-                        </select>
-                    </div>
+                  
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Title</label>
                         <input
@@ -186,9 +148,7 @@ const AddCaseStudy = () => {
                             onChange={handleChange}
                         />
                     </div>
-                </div>
-
-                <div className="row">
+                   
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Subtitle</label>
                         <input
@@ -200,6 +160,10 @@ const AddCaseStudy = () => {
                             onChange={handleChange}
                         />
                     </div>
+
+                </div>
+
+                <div className="row">
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Description</label>
                         <textarea
@@ -212,9 +176,7 @@ const AddCaseStudy = () => {
                         />
                     </div>
                 </div>
-
                 <div className="row">
-
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Priority</label>
                         <input
@@ -225,9 +187,12 @@ const AddCaseStudy = () => {
                             value={formValue.priority}
                             onChange={handleChange}
                         />
+
+
+
                     </div>
 
-                    <div className="col">
+                    <div className="col-sm-6">
                         <label htmlFor="formGroupExampleInput">Image</label>
                         <input
                             type="file"
@@ -251,7 +216,7 @@ const AddCaseStudy = () => {
                                     <Skeleton variant="rectangular" width={100} height={100} />
                                 </div>
                             }
-                            {formValue?.image.map((item, i) =>
+                            {formValue?.image?.map((item, i) =>
                                 <span key={i}>
                                     < img
                                         src={item}
@@ -275,20 +240,7 @@ const AddCaseStudy = () => {
 
                     </div>
                 </div>
-
-                <div className="row">
-                    <div className="col-sm-6">
-                        <label htmlFor="formGroupExampleInput">Video Link</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Video Link"
-                            name="video"
-                            value={formValue?.video}
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
+                
 
                 {/* Button */}
                 <Box display="flex" justifyContent="end" mt="20px">

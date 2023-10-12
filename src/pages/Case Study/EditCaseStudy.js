@@ -16,12 +16,12 @@ const EditWork = () => {
     const params = useParams();
 
     const initValue = {
-        catID: "",
+        
         title: "",
         subTitle: "",
         description: "",
         priority: "",
-        video: "video",
+        
         image: []
     }
     const [formValue, setFormValue] = useState(initValue);
@@ -39,10 +39,10 @@ const EditWork = () => {
         setFormValue(prev => ({ ...prev, [name]: value }));
     }
 
-    // get category data
+    // get case-study data
     const getCategoryData = async () => {
         setCatLoader(true)
-        const res = await HttpClient.requestData("view-category", "GET", {});
+        const res = await HttpClient.requestData("view-case-study", "GET", {});
         // console.log("resCat", res);
         if (res && res?.status) {
             setCatLoader(false)
@@ -53,21 +53,19 @@ const EditWork = () => {
         }
     }
 
-    // get single work data
+    // get single case-study data
     const getSingleWork = async () => {
         setIsLoading(true);
-        const res = await HttpClient.requestData("view-single-work/" + params.id, "GET", {})
+        const res = await HttpClient.requestData("view-single-case-study/" + params.id, "GET", {})
         // console.log("resSingg", res);
         if (res && res?.status) {
             setIsLoading(false);
             setSingleWork(res?.data);
             const sinData = res?.data[0]
             setFormValue({
-                catID: sinData?.catID,
                 title: sinData?.title,
                 subTitle: sinData?.subTitle,
                 description: sinData?.description,
-                video: sinData?.video,
                 image: sinData?.image,
                 priority: sinData?.priority
             })
@@ -85,7 +83,7 @@ const EditWork = () => {
             data.append("image", item);
             // console.log(data, "daaaaa");
             setImgLoader(true)
-            let res = await HttpClient.fileUplode("case-study-image-upload", "POST", data);
+            let res = await HttpClient.fileUplode("work-image-upload", "POST", data);
             console.log("resultImg", res);
             if (res && res?.status) {
                 setImgLoader(false)
@@ -101,10 +99,6 @@ const EditWork = () => {
 
     // validate
     const validate = () => {
-        if (!formValue?.catID) {
-            toast.error("Category Name is required");
-            return true
-        }
         if (!formValue?.title) {
             toast.error("Title is required");
             return true
@@ -121,14 +115,11 @@ const EditWork = () => {
             toast.error("Priority is required");
             return true
         }
-        if (formValue?.image.length === 0) {
-            toast.error("Image is required");
-            return true
-        }
-        if (!formValue?.video) {
-            toast.error("Video is required");
-            return true
-        }
+        // if (formValue?.image.length === 0) {
+        //     toast.error("Image is required");
+        //     return true
+        // }
+        
         return false
     }
 
@@ -136,17 +127,14 @@ const EditWork = () => {
     const handleSubmit = async (e) => {
         // console.log("valuesdd");
         e.preventDefault();
-
         if (validate()) {
             return
         }
 
         const data = {
-            catID: formValue.catID,
             title: formValue.title,
             subTitle: formValue.subTitle,
             description: formValue.description,
-            video: formValue.video,
             image: formValue.image,
             priority: formValue?.priority
         }
@@ -178,23 +166,7 @@ const EditWork = () => {
 
             <form>
                 <div className="row">
-                    <div className="col">
-                        <label htmlFor="formGroupExampleInput">Select Category</label>
-                        <select
-                            class="form-control"
-                            aria-label="Default select example"
-                            name="catID"
-                            value={formValue.catID}
-                            onChange={handleChange}
-                        >
-                            {/* {catLoadet && <option value={""} disabled>Loading...</option>} */}
-                            <option value={""} disabled>Selecet Category</option>
-                            {catData?.map((item, i) =>
-                                <option key={i} value={item?._id}>{item?.name}</option>
-                            )
-                            }
-                        </select>
-                    </div>
+                  
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Title</label>
                         <input
@@ -206,9 +178,7 @@ const EditWork = () => {
                             onChange={handleChange}
                         />
                     </div>
-                </div>
-
-                <div className="row">
+                   
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Subtitle</label>
                         <input
@@ -220,6 +190,10 @@ const EditWork = () => {
                             onChange={handleChange}
                         />
                     </div>
+
+                </div>
+
+                <div className="row">
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Description</label>
                         <textarea
@@ -232,21 +206,23 @@ const EditWork = () => {
                         />
                     </div>
                 </div>
-
                 <div className="row">
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Priority</label>
                         <input
-                            type="text"
+                            type="number"
                             className="form-control"
                             placeholder="Priority"
                             name="priority"
                             value={formValue.priority}
                             onChange={handleChange}
                         />
+
+
+
                     </div>
 
-                    <div className="col">
+                    <div className="col-sm-6">
                         <label htmlFor="formGroupExampleInput">Image</label>
                         <input
                             type="file"
@@ -263,56 +239,38 @@ const EditWork = () => {
                             (700 x 700 px)
                         </div>
 
-                        {/* image */}
+                        {/* picture */}
                         <div>
-                            {imageLoader
-                                ?
+                            {imageLoader &&
                                 <div>
                                     <Skeleton variant="rectangular" width={100} height={100} />
                                 </div>
-                                :
-                                <>                                {formValue?.image?.map((item, i) =>
-                                    <span key={i}>
-                                        < img
-                                            src={item}
-                                            className="img-fluid m-1"
-                                            alt="Responsive image"
-                                            style={{ height: "5rem", width: "5rem" }}
-                                        />
-                                        <span
-                                            style={{ fontSize: "25px", cursor: "pointer" }}
-                                            onClick={() => {
-                                                let imgArr = formValue?.image.filter((item, ind) => ind !== i)
-                                                setFormValue(prev => ({ ...prev, image: imgArr }))
-                                            }}
-                                        >
-                                            x
-                                        </span>
+                            }
+                            {formValue?.image?.map((item, i) =>
+                                <span key={i}>
+                                    < img
+                                        src={item}
+                                        className="img-fluid m-1"
+                                        alt="Responsive image"
+                                        style={{ height: "5rem", width: "5rem" }}
+                                    />
+                                    <span
+                                        style={{ fontSize: "25px", cursor: "pointer" }}
+                                        onClick={() => {
+                                            let imgArr = formValue?.image.filter((item, ind) => ind !== i)
+                                            setFormValue(prev => ({ ...prev, image: imgArr }))
+                                        }}
+                                    >
+                                        x
                                     </span>
-                                )
-                                }
-                                </>
-
+                                </span>
+                            )
                             }
                         </div>
 
-
                     </div>
                 </div>
-
-                <div className="row">
-                    <div className="col-sm-6">
-                        <label htmlFor="formGroupExampleInput">Video Link</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Video Link"
-                            name="video"
-                            value={formValue?.video}
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
+                
 
                 {/* Button */}
                 <Box display="flex" justifyContent="end" mt="20px">
