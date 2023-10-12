@@ -345,6 +345,19 @@ const EditWork = () => {
                                     classname="form-check-input"
                                     type="radio"
                                     name="language"
+                                    id="inlineRadio1"
+                                    checked={formValue.language === "Hindi"}
+                                    value="Hindi"
+                                    onChange={() => setFormValue(prev => ({ ...prev, language: "Hindi" }))}
+                                />
+                                <label classname="form-check-label" for="inlineRadio1">Hindi</label>
+                            </div>
+
+                            <div classname="form-check form-check-inline">
+                                <input
+                                    classname="form-check-input"
+                                    type="radio"
+                                    name="language"
                                     id="inlineRadio3"
                                     value="English"
                                     checked={formValue.language === "English"}

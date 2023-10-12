@@ -8,7 +8,6 @@ import CustomLoader from "../../CustomComponents/loader/CustomLoader";
 const AddCaseStudy = () => {
     const [isLoading, setIsLoading] = useState(false);
 
-    const [catName, setCatName] = useState()
     const initValue = {
         catID: "",
         title: "",

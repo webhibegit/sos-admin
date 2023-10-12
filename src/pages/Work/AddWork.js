@@ -1,6 +1,4 @@
 import { Box, Button, Select, TextField, SelectChangeEvent, InputLabel, Skeleton } from "@mui/material";
-import { Formik } from "formik";
-import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
@@ -309,7 +307,7 @@ const AddWork = () => {
                             <label htmlFor="formGroupExampleInput">Language</label>
                         </div>
                         <div className="d-flex flex-wrap">
-                            <div classname="form-check form-check-inline">
+                            <div classname="form-check form-check-inline" style={{ marginRight: "1rem" }}>
                                 <input
                                     classname="form-check-input"
                                     type="radio"
@@ -321,8 +319,21 @@ const AddWork = () => {
                                 <label classname="form-check-label" for="inlineRadio1">Bengali</label>
                             </div>
 
-                            <div classname="form-check form-check-inline">
+                            <div classname="form-check form-check-inline" style={{ marginRight: "1rem" }}>
                                 <input
+                                    classname="form-check-input"
+                                    type="radio"
+                                    name="language"
+                                    id="inlineRadio1"
+                                    value="Hindi"
+                                    onChange={() => setFormValue(prev => ({ ...prev, language: "Hindi" }))}
+                                />
+                                <label classname="form-check-label" for="inlineRadio1">Hindi</label>
+                            </div>
+
+                            <div classname="form-check form-check-inline" style={{ marginRight: "1rem" }}>
+                                <input
+
                                     classname="form-check-input"
                                     type="radio"
                                     name="language"

@@ -94,10 +94,7 @@ const EditBrand = () => {
 
     };
 
-
-
-
-
+    
     return (
         <Box m="20px">
             <CustomLoader loading={isLoading} />
