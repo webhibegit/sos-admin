@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import CustomLoader from '../../CustomComponents/loader/CustomLoader';
 import ImageInDataTable from '../../CustomComponents/ImageInDataTable';
 
+
 const ManageCaseStudy = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
