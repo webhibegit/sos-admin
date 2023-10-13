@@ -69,7 +69,7 @@ const ManageWork = () => {
     const getWorkData = async () => {
         setIsLoading(true);
         const res = await HttpClient.requestData('view-work', "GET", {});
-        // console.log("resGetCat", res)
+        console.log("resGetCat", res)
         let apiData = []
         if (res && res?.status) {
             setIsLoading(false);
