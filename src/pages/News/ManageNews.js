@@ -108,7 +108,6 @@ const ManageNews = () => {
                     />
                 </div>
             </Box>
-
         </div>
     )
 }

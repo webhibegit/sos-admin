@@ -2,8 +2,8 @@ import Axios from "axios";
 import { reactLocalStorage } from "reactjs-localstorage";
 
 // export const BASE_URL = "http://35.154.235.57:4040/api/v1/user/";
-export const BASE_URL = "http://13.233.5.3:4091/api/v1/admin/";
-export const IMAGE_URL = "http://13.233.5.3:4091/"
+export const BASE_URL = "https://api.sosideas.in/api/v1/admin/";
+export const IMAGE_URL = "https://api.sosideas.in/"
 
 
 // async function requestData(url, method, params = null) {
