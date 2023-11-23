@@ -4,11 +4,11 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
-import HttpClient, { IMAGE_URL } from "../../utils/HttpClient";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { MenuItem } from "react-pro-sidebar";
 import CustomLoader from "../../CustomComponents/loader/CustomLoader";
+import HttpClient from "../../utils/HttpClient";
 
 const EditWork = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -16,12 +16,12 @@ const EditWork = () => {
     const params = useParams();
 
     const initValue = {
-        
+
         title: "",
         subTitle: "",
         description: "",
         priority: "",
-        
+
         image: []
     }
     const [formValue, setFormValue] = useState(initValue);
@@ -87,7 +87,8 @@ const EditWork = () => {
             console.log("resultImg", res);
             if (res && res?.status) {
                 setImgLoader(false)
-                let url = IMAGE_URL + res?.data;
+                let url = res?.data?.url;
+
                 imgArr = [...imgArr, url]
                 setFormValue(prev => ({ ...prev, image: imgArr }))
             } else {
@@ -119,7 +120,7 @@ const EditWork = () => {
         //     toast.error("Image is required");
         //     return true
         // }
-        
+
         return false
     }
 
@@ -166,7 +167,7 @@ const EditWork = () => {
 
             <form>
                 <div className="row">
-                  
+
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Title</label>
                         <input
@@ -178,7 +179,7 @@ const EditWork = () => {
                             onChange={handleChange}
                         />
                     </div>
-                   
+
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Subtitle</label>
                         <input
@@ -270,7 +271,7 @@ const EditWork = () => {
 
                     </div>
                 </div>
-                
+
 
                 {/* Button */}
                 <Box display="flex" justifyContent="end" mt="20px">

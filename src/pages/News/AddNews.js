@@ -4,10 +4,10 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { useState } from "react";
-import HttpClient, { IMAGE_URL } from "../../utils/HttpClient";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import CustomLoader from "../../CustomComponents/loader/CustomLoader";
+import HttpClient from "../../utils/HttpClient";
 
 const AddNews = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -69,7 +69,8 @@ const AddNews = () => {
         // console.log("resultImg", res);
         if (res && res?.status) {
             setImgLoader(false)
-            let url = IMAGE_URL + res?.data;
+            let url = res?.data?.url;
+
             // imgArr = [...imgArr, url]
             setNewsImg(url)
         } else {

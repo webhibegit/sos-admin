@@ -4,11 +4,11 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
-import HttpClient, { IMAGE_URL } from "../../utils/HttpClient";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { MenuItem } from "react-pro-sidebar";
 import CustomLoader from "../../CustomComponents/loader/CustomLoader";
+import HttpClient from "../../utils/HttpClient";
 
 const EditWork = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -124,7 +124,8 @@ const EditWork = () => {
             console.log("resultImg", res);
             if (res && res?.status) {
                 setImgLoader(false)
-                let url = IMAGE_URL + res?.data;
+                let url = res?.data?.url;
+
                 imgArr = [...imgArr, url]
                 setFormValue(prev => ({ ...prev, image: imgArr }))
             } else {

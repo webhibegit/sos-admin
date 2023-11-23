@@ -1,9 +1,9 @@
 import { Box, Button, Select, TextField, SelectChangeEvent, InputLabel, Skeleton } from "@mui/material";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
-import HttpClient, { IMAGE_URL } from "../../utils/HttpClient";
 import toast from "react-hot-toast";
 import CustomLoader from "../../CustomComponents/loader/CustomLoader";
+import HttpClient from "../../utils/HttpClient";
 
 const AddCaseStudy = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -56,7 +56,7 @@ const AddCaseStudy = () => {
             console.log("resultImg", res);
             if (res && res?.status) {
                 setImgLoader(false)
-                let url = IMAGE_URL + res?.data;
+                let url = res?.data?.url;
                 imgArr = [...imgArr, url]
                 setFormValue(prev => ({ ...prev, image: imgArr }))
             } else {
@@ -68,7 +68,7 @@ const AddCaseStudy = () => {
 
     // validate
     const validate = () => {
-       
+
         if (!formValue?.title) {
             toast.error("Title is required");
             return true
@@ -136,7 +136,7 @@ const AddCaseStudy = () => {
 
             <form>
                 <div className="row">
-                  
+
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Title</label>
                         <input
@@ -148,7 +148,7 @@ const AddCaseStudy = () => {
                             onChange={handleChange}
                         />
                     </div>
-                   
+
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Subtitle</label>
                         <input
@@ -240,7 +240,7 @@ const AddCaseStudy = () => {
 
                     </div>
                 </div>
-                
+
 
                 {/* Button */}
                 <Box display="flex" justifyContent="end" mt="20px">

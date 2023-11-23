@@ -1,9 +1,9 @@
 import { Box, Button, Select, TextField, SelectChangeEvent, InputLabel, Skeleton } from "@mui/material";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
-import HttpClient, { IMAGE_URL } from "../../utils/HttpClient";
 import toast from "react-hot-toast";
 import CustomLoader from "../../CustomComponents/loader/CustomLoader";
+import HttpClient from "../../utils/HttpClient";
 
 const AddBrand = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +38,8 @@ const AddBrand = () => {
         data.append("image", file);
         let res = await HttpClient.fileUplode("work-image-upload", "POST", data);
         if (res && res.status) {
-            let url = IMAGE_URL + res?.data;
+            let url = res?.data?.url;
+
             setImage(url);
         }
         else {

@@ -1,10 +1,10 @@
 import { Box, Button, Select, TextField, SelectChangeEvent, InputLabel, Skeleton } from "@mui/material";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
-import HttpClient, { IMAGE_URL } from "../../utils/HttpClient";
 import toast from "react-hot-toast";
 import CustomLoader from "../../CustomComponents/loader/CustomLoader";
 import { useLocation } from "react-router-dom";
+import HttpClient from "../../utils/HttpClient";
 
 const EditBrand = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +46,7 @@ const EditBrand = () => {
         data.append("image", file);
         let res = await HttpClient.fileUplode("work-image-upload", "POST", data);
         if (res && res.status) {
-            let url = IMAGE_URL + res?.data;
+            let url = res?.data?.url;
             setImage(url);
         }
         else {
@@ -94,7 +94,7 @@ const EditBrand = () => {
 
     };
 
-    
+
     return (
         <Box m="20px">
             <CustomLoader loading={isLoading} />

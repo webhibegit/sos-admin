@@ -2,10 +2,10 @@ import { Box, Button, Select, TextField, SelectChangeEvent, InputLabel, Skeleton
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { useEffect, useState } from "react";
-import HttpClient, { IMAGE_URL } from "../../utils/HttpClient";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import CustomLoader from "../../CustomComponents/loader/CustomLoader";
+import HttpClient from "../../utils/HttpClient";
 
 const AddWork = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -104,7 +104,8 @@ const AddWork = () => {
             console.log("resultImg", res);
             if (res && res?.status) {
                 setImgLoader(false)
-                let url = IMAGE_URL + res?.data;
+                let url = res?.data?.url;
+
                 imgArr = [...imgArr, url]
                 setFormValue(prev => ({ ...prev, image: imgArr }))
             } else {
