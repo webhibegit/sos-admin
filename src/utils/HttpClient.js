@@ -3,53 +3,7 @@ import { reactLocalStorage } from "reactjs-localstorage";
 
 // export const BASE_URL = "http://35.154.235.57:4040/api/v1/user/";
 export const BASE_URL = "https://api.sosideas.in/api/v1/admin/";
-export const IMAGE_URL = "https://api.sosideas.in/"
-
-
-// async function requestData(url, method, params = null) {
-//   let token = "";
-//   let user = reactLocalStorage.getObject("userData");
-//   if (user && user != null && Object.keys(user).length > 0) {
-//     token = user.token;
-//   }
-//   // console.log("token",userdata.token);
-//   // let bash_url = 'http://api.vintagebazaar.in/api/';
-//   // let bash_url = "http://127.0.0.1:3030/api/";
-//   let bash_url = "http://13.127.101.102:5008/v1/user/";
-//   let apiUrl = bash_url + url;
-//   console.log("Url " + method, apiUrl);
-//   const myHeaders = new Headers();
-//   myHeaders.append("Content-Type", "application/json");
-//   // myHeaders.append("Access-Control-Allow-Origin", "http://127.0.0.1:3030");
-//   myHeaders.append("Access-Control-Allow-Origin", "http://13.127.101.102:5008");
-//   if (token != "") {
-//     myHeaders.append("authorization", token);
-//   }
-//   myHeaders.append("userType", "Admin");
-//   const options = {
-//     method: method,
-//     headers: {
-//       Accept: "application/json",
-//       "Content-Type": "application/json",
-//     },
-//   };
-//   if (method === "DELETE") {
-//     // options['body'] = none;
-//   } else if (method !== "GET") {
-//     options["body"] = JSON.stringify(params);
-//   }
-//   return await fetch(apiUrl, options)
-//     .then((res) => res.json())
-//     .then(
-//       (result) => {
-//         // console.log("result", result);
-//         return result;
-//       },
-//       (error) => {
-//         // this.setState({ error });
-//       }
-//     );
-// }
+export const IMAGE_URL = "https://api.sosideas.in/";
 
 async function requestData(url, method, params = {}) {
   let token = "";
@@ -98,52 +52,6 @@ async function requestData(url, method, params = {}) {
       return result;
     })
     .catch((error) => console.log("error", error));
-}
-
-async function fileUplodeDynamic(
-  url,
-  method,
-  file,
-  // object_get = {},
-  tokenCustom = null
-) {
-  // let bash_url = "http://142.93.55.214:3089/api/v1/admin/";
-  let bash_url = "https://api.fisibility.com/api/v1/admin/";
-
-  let apiUrl = bash_url + url;
-  // let data = new FormData();
-  // data.append("image", file);https://api.fisibility.com/function (key) {
-  //   let ddd = object_get[key];
-  //   data.append(key, ddd);
-  // });
-
-  let headers = {
-    // 'Accept': 'application/json',
-    "Content-Type": "multipart/form-data",
-    "Access-Control-Allow-Origin": "https://api.fisibility.com",
-    // 'Authorization': 'Bearer ' + login_status,
-  };
-
-  // Display the key/value pairs
-  for (var pair of file.entries()) {
-    console.log(pair[0] + ", " + pair[1]);
-  }
-
-  return await fetch(apiUrl, {
-    method: "POST",
-    body: file,
-    redirect: "follow",
-  })
-    .then((response) => response.json())
-    .then(
-      (result) => {
-        // console.log(result);
-        return result;
-      },
-      (error) => {
-        return error;
-      }
-    );
 }
 
 async function fileUplode(
@@ -205,208 +113,26 @@ async function fileUplode(
     );
 }
 
-// async function fileUplode(
-//   url,
-//   method,
-//   file,
-//   option,
-//   object_get = {},
-//   tokenCustom = null
-// ) {
-//   let token = "";
-//   let user = reactLocalStorage.getObject("userData");
-//   if (user && user != null && Object.keys(user).length > 0) {
-//     token = user.token;
-//   }
-//   let bash_url = "http://13.127.101.102:5008/v1/user/";
-//   let apiUrl = bash_url + url;
-//   const data = new FormData();
-//   if (option == "Single") {
-//     data.append("image", file);
-//   } else {
-//     let i = 0;
-//     Object.keys(file).forEach(function (key) {
-//       data.append("image", file[i]);
-//       i++;
-//     });
-//   }
+async function newFileUpload(file) {
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInBob25lTm8iOiI3MDAzNzQ2MjcwIiwicGFzc3dvcmQiOiIxMjMiLCJpYXQiOjE2OTU3MTMxODJ9.8h3YfuhPNi_ZsVa-l40neq7GT3PCOpzZrvfk43SYWas");
+  myHeaders.append("userType", "Admin");
 
-//   Object.keys(object_get).forEach(function (key) {
-//     let ddd = object_get[key];
-//     if (key == "dynamic_fields") {
-//       ddd = JSON.stringify(object_get[key]);
-//     }
-//     console.log(key, ddd);
-//     data.append(key, ddd);
-//   });
-
-//   // for (var pair of data.entries()) {
-//   //     console.log(pair[0]+ ', ' + pair[1]);
-//   // }
-
-//   // console.log('data',data);
-//   if (token != "") {
-//    var toooo=token;
-//   }
-//   let headers = {
-//     // 'Accept': 'application/json',
-//     // 'Content-Type': 'multipart/form-data',
-//     "Access-Control-Allow-Origin": "http://13.127.101.102:5008",
-//     "userType":"Admin",
-//     "authorization":toooo
-
-//     // 'Authorization': 'Bearer ' + login_status,
-//   };
-//   console.log("data", data);
-
-//   return await fetch(apiUrl, {
-//     method: method,
-//     headers: headers,
-//     body: data,
-//   })
-//     .then((response) => response.json())
-//     .then(
-//       (result) => {
-//         console.log(result);
-//         return result;
-//       },
-//       (error) => {
-//         return error;
-//       }
-//     );
-// }
-
-async function newFileUpload(url, file, object_get) {
-  // let bash_url = "http://127.0.0.1:3030/api/";
-  let bash_url = "https://api.fisibility.com/api/v1/";
-
-  let apiUrl = bash_url + url;
-
-  const data = new FormData();
-  if (typeof file == "string") {
-    data.append("image", {
-      uri: String(file),
-      type: "image/jpeg",
-      name: "filename.jpg",
-    });
-  } else {
-    data.append("image", file);
-  }
-  for (var pair of data.entries()) {
-    console.log(pair[0] + ", " + pair[1]);
-  }
-  console.log("file", file);
-  Object.keys(object_get).forEach(function (key) {
-    let ddd = object_get[key];
-    console.log(key, ddd);
-    data.append(key, ddd);
-  });
+  var formdata = new FormData();
+  formdata.append("image", file.files[0], "workimageUploadsLOGO.png");
 
   var requestOptions = {
-    method: "POST",
-    body: data,
-    redirect: "follow",
+    method: 'POST',
+    headers: myHeaders,
+    body: formdata,
+    redirect: 'follow'
   };
-
-  return await fetch(apiUrl, requestOptions)
-    .then((response) => response.json())
-    .then((result) => {
-      return result;
-    })
-    .catch((error) => {
-      console.log("error", error);
-      return error;
-    });
+  fetch("https://api.sosideas.in/api/v1/admin/work-image-upload", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
 }
 
-async function newFileCropUpload(url, file, object_get) {
-  let bash_url = "https://api.fisibility.com/api/";
-  // let bash_url = "http://127.0.0.1:3030/api/";
-
-  let apiUrl = bash_url + url;
-
-  const data = new FormData();
-  data.append("image", {
-    uri: file,
-    type: "image/jpeg",
-    name: "filename.jpg",
-  });
-
-  var requestOptions = {
-    method: "POST",
-    body: data,
-    redirect: "follow",
-  };
-
-  return await fetch(apiUrl, requestOptions)
-    .then((response) => response.json())
-    .then((result) => {
-      return result;
-    })
-    .catch((error) => {
-      console.log("error", error);
-      return error;
-    });
-}
-
-async function videoUpload(url, file, object_get) {
-  let bash_url = "https://api.fisibility.com/api/";
-
-  let apiUrl = bash_url + url;
-  console.log("file", file);
-  const data = new FormData();
-  // // data.append("video", fileInput.files[0], "Mumbai ka secret haath laga _ RCB vs RR _ Pre match chat.mp4");
-  data.append("video", file);
-
-  var requestOptions = {
-    method: "POST",
-    body: data,
-    redirect: "follow",
-  };
-
-  return await fetch(apiUrl, requestOptions)
-    .then((response) => response.json())
-    .then((result) => {
-      return result;
-    })
-    .catch((error) => {
-      console.log("error", error);
-      return error;
-    });
-}
-
-async function uploadFileRequest(url, file, callback) {
-  const BASE_URL = "https://api.fisibility.com/api/";
-  var cancelToken = Axios.CancelToken;
-  var source = cancelToken.source();
-  let apiUrl = BASE_URL + url;
-
-  const data = new FormData();
-  data.append("video", file);
-
-  let config = {
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "multipart/form-data",
-    },
-    onUploadProgress: (progressEvent) => {
-      var percentCompleted = Math.round(
-        (progressEvent.loaded * 100) / progressEvent.total
-      );
-      console.log(percentCompleted);
-      callback(percentCompleted, null, null);
-    },
-    cancelToken: source.token,
-  };
-
-  return await Axios.post(apiUrl, data, config)
-    .then((res) => {
-      return res.data;
-    })
-    .catch((error) => {
-      callback(null, null, error);
-    });
-}
 
 const getOriginalname = async (data, extn) => {
   let arr = data.split("/");
@@ -483,10 +209,6 @@ export default {
   requestData,
   fileUplode,
   newFileUpload,
-  newFileCropUpload,
-  videoUpload,
-  uploadFileRequest,
-  fileUplodeDynamic,
   // get,
   // post,
   // put,
