@@ -28,7 +28,9 @@ const AddWork = () => {
     const [indusData, setIndusData] = useState([])
     const [mediaData, setMediaData] = useState([])
     const [imageLoader, setImgLoader] = useState(false);
+    const [imgLoader, setImageLoader] = useState(false);
     const [catLoadet, setCatLoader] = useState(false)
+    const [image, setImage] = useState("");
 
     console.log("formValueddf", formValue)
 
@@ -36,6 +38,7 @@ const AddWork = () => {
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormValue(prev => ({ ...prev, [name]: value }));
+        // setImage()
     }
 
     // get category data
@@ -115,6 +118,31 @@ const AddWork = () => {
         }
     }
 
+    //for thumbnail
+    const Handlethumbnail = async (e) => {
+        setImageLoader(true);
+        let file = e.target.files[0];
+        let data = new FormData();
+        data.append("image", file);
+
+        let res = await HttpClient.fileUplode("work-image-upload", "POST", data);
+
+        if (res && res.status) {
+            console.log("UploadImageRes", res?.data?.url);
+            setImage(res?.data?.url);
+        } else {
+            toast.error(res?.message);
+        }
+        setImageLoader(false);
+    };
+
+    //for cross button
+    const HandleCrossClick = () => {
+        setImage("");
+        let file = document.querySelector("#categoryBanner");
+        file.value = "";
+    };
+
     // validate
     const validate = () => {
         if (!formValue?.catID) {
@@ -180,6 +208,7 @@ const AddWork = () => {
             description: formValue.description,
             video: formValue.video,
             image: formValue.image,
+            thumbNail: image,
             priority: formValue.priority
         }
         setIsLoading(true);
@@ -387,7 +416,7 @@ const AddWork = () => {
                                     <Skeleton variant="rectangular" width={100} height={100} />
                                 </div>
                             }
-                            {formValue?.image.map((item, i) =>
+                            {formValue?.image?.map((item, i) =>
                                 <span key={i}>
                                     < img
                                         src={item}
@@ -424,6 +453,49 @@ const AddWork = () => {
                             onChange={handleChange}
                         />
                     </div>
+                </div>
+
+                <div>
+                    <label for="exampleInputEmail1">
+                        Thumbnail<span style={{ color: "red" }}></span> :
+                    </label>
+
+                    <input
+                        class="form-control"
+                        onChange={(e) => Handlethumbnail(e)}
+                        type="file"
+                        id="categoryBanner"
+                        accept="image/*"
+                    />
+                    {imgLoader ? (
+                        <>
+                            <div>
+                                <Skeleton variant="rectangular" width={100} height={100} />
+                            </div>
+                        </>
+                    ) : null}
+                    {image && (
+                        <>
+                            <div>
+                                <img
+                                    style={{
+                                        height: "10%",
+                                        width: "10%",
+                                        marginTop: "12px",
+                                        borderRadius: "5px",
+                                    }}
+                                    src={image}
+                                />
+                                <button
+                                    onClick={() => HandleCrossClick()}
+                                    style={{ color: "red" }}
+                                    type="button"
+                                    class="btn-close"
+                                    aria-label="Close"
+                                ></button>
+                            </div>
+                        </>
+                    )}
                 </div>
 
                 {/* Button */}

@@ -61,6 +61,10 @@ const ManageWork = () => {
             selector: row => row.image,
         },
         {
+            name: 'ThumbNail',
+            selector: row => row.thumbNail,
+        },
+        {
             name: 'Action',
             selector: row => row.action,
         }
@@ -79,11 +83,12 @@ const ManageWork = () => {
                 name: item?.catName,
                 title: item?.title,
                 subtitle: item?.subTitle,
-                media:item?.medianame,
-                industry:item?.Industryname,
-                language:item?.language,
+                media: item?.medianame,
+                industry: item?.Industryname,
+                language: item?.language,
                 priority: item?.priority,
                 image: <ImageInDataTable src={item?.image?.[0]} />,
+                thumbNail: item?.thumbNail,
                 action: <EditDeleteIcon
                     onClickEdit={() => handleEdit(item?._id)}
                     onClickDelete={() => handleDelete(item?._id)}

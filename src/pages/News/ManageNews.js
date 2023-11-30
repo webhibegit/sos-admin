@@ -37,6 +37,10 @@ const ManageNews = () => {
             selector: row => row.link,
         },
         {
+            name: 'Priority',
+            selector: row => row.priority,
+        },
+        {
             name: 'Action',
             selector: row => row.action,
         }
@@ -55,6 +59,7 @@ const ManageNews = () => {
                 sl: i + 1,
                 image: <ImageInDataTable src={item?.image} />,
                 link: item?.link,
+                priority: item?.priority,
                 action: <EditDeleteIcon
                     onClickEdit={(e) => handleEdit(item?._id)}
                     onClickDelete={(e) => handleDelete(item?._id)}

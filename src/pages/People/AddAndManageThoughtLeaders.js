@@ -441,6 +441,8 @@ import { Skeleton } from "@mui/material";
 const AddAndManageThoughtLeaders = () => {
     const params = useParams();
     const [name, setName] = useState("");
+    const [designation, setDesignation] = useState("");
+    const [description, setDescription] = useState("");
     const [image, setImage] = useState("");
     const [imageLoader, setImageLoader] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -454,21 +456,27 @@ const AddAndManageThoughtLeaders = () => {
         fetchAllMood();
     }, []);
 
+    //for cross button
     const HandleCrossClick = () => {
         setImage("");
-        let file = document.querySelector("#categoryBanner");
+        let file = document.querySelector("#image");
         file.value = "";
     };
 
+    //for edit 
     const onEdit = (item) => {
         window.scroll(0, 0);
         console.log("item", item);
         setImage(item?.image);
-        setName(item?.mood);
+        setName(item?.name);
+        setDesignation(item?.designation);
+        setDescription(item?.description)
         setId(item?._id);
         setHide(false);
     };
 
+
+    //for delete
     const onDelete = (id) => {
         Swal.fire({
             title: "Are you sure?",
@@ -480,7 +488,7 @@ const AddAndManageThoughtLeaders = () => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                HttpClient.DeleteMood(id)
+                HttpClient.requestData("user-del-people-thought/" + id, "DELETE")
                     .then((res) => {
                         if (res && res.status) {
                             toast.success("Deleted Successfully");
@@ -497,6 +505,22 @@ const AddAndManageThoughtLeaders = () => {
         });
     };
 
+    // const handleDelete = (id) => {
+    //     const del = async () => {
+    //         setIsLoading(true);
+    //         const res = await HttpClient.requestData("delete-news/" + id, "DELETE")
+    //         if (res && res?.status) {
+    //             getNewsData();
+    //             toast.success("News Deleted Successfully");
+    //         } else {
+    //             toast.error(res?.message || "Something Wrong");
+    //         }
+    //     }
+
+    //     DeleteConfirmModal(del);
+    // }
+
+    //for image upload
     const HandleImage = async (e) => {
         setImageLoader(true);
         let file = e.target.files[0];
@@ -507,16 +531,17 @@ const AddAndManageThoughtLeaders = () => {
 
         if (res && res.status) {
             console.log("UploadImageRes", res);
-            setImage(res?.url);
+            setImage(res?.data?.url);
         } else {
             toast.error(res?.message);
         }
         setImageLoader(false);
     };
 
+    //for fetching all data
     const fetchAllMood = () => {
         setLoading(true);
-        HttpClient.requestData('view-case-study', "GET", {})
+        HttpClient.requestData('user-view-people-thought', "GET", {})
             .then((res) => {
                 console.log("ResAllBlog", res.data);
                 if (res && res?.status) {
@@ -525,8 +550,10 @@ const AddAndManageThoughtLeaders = () => {
                     let arr = res?.data?.map((item, index) => {
                         return {
                             sl: index + 1,
-                            mood: item?.mood,
-                            CategoryBanner: (
+                            name: item?.name,
+                            designation: item?.designation,
+                            description: item?.description,
+                            Image: (
                                 <>
                                     {item?.image ? (
                                         <img
@@ -608,21 +635,26 @@ const AddAndManageThoughtLeaders = () => {
             });
     };
 
+    //for add data
     const AddMood = () => {
         let data = {
-            mood: name,
+            name: name,
+            designation: designation,
+            description: description,
             image: image,
         };
 
-        if (name && image) {
-            HttpClient.requestData("add-case-study", "POST", data)
+        if (name && designation && description) {
+            HttpClient.requestData("user-add-people-thought", "POST", data)
                 .then((res) => {
                     if (res && res.status) {
                         toast.success(res.message);
                         fetchAllMood();
                         setImage("");
                         setName("");
-                        let file = document.querySelector("#categoryBanner");
+                        setDescription("");
+                        setDesignation("");
+                        let file = document.querySelector("#image");
                         file.value = "";
                     } else {
                         toast.error(res?.message);
@@ -652,10 +684,20 @@ const AddAndManageThoughtLeaders = () => {
                 <div
                     style={{ fontSize: "14px", color: "#495057", fontWeight: "bolder" }}
                 >
-                    Mood Name
+                    Name
                 </div>
             ),
-            selector: (row) => row.mood,
+            selector: (row) => row.name,
+        },
+        {
+            name: (
+                <div
+                    style={{ fontSize: "14px", color: "#495057", fontWeight: "bolder" }}
+                >
+                    Designation
+                </div>
+            ),
+            selector: (row) => row.designation,
         },
         {
             name: (
@@ -665,7 +707,7 @@ const AddAndManageThoughtLeaders = () => {
                     Image
                 </div>
             ),
-            selector: (row) => row.CategoryBanner,
+            selector: (row) => row.image,
         },
 
         {
@@ -685,23 +727,28 @@ const AddAndManageThoughtLeaders = () => {
         },
     ];
 
+    //for update data
     const UpdateMood = () => {
         console.log("ID", id);
         let data = {
-            mood: name,
+            name: name,
+            designation: designation,
+            description: description,
             image: image,
         };
-        if (name && image) {
-            HttpClient.UpdateMood("update-case-study/" + params.id, "PUT", data)
+        if (name && designation && description) {
+            HttpClient.requestData("user-edit-people-thought/" + params.id, "PUT", data)
                 .then((res) => {
                     if (res && res.status) {
                         toast.success("Updated Successfully");
                         setHide(true);
-
+                        setName("");
+                        setDescription("");
+                        setDesignation("");
                         setImage("");
                         setName("");
                         fetchAllMood();
-                        let file = document.querySelector("#categoryBanner");
+                        let file = document.querySelector("#image");
                         file.value = "";
                     } else {
                         toast.error(res?.message);
@@ -726,7 +773,9 @@ const AddAndManageThoughtLeaders = () => {
                     }}
                 >
                     {/* <PageLoader /> */}
-                    <h2>Loading...</h2>
+                    <div>
+                        <Skeleton variant="rectangular" width={100} height={100} />
+                    </div>
                 </div>
             ) : (
                 <div component="div" className="TabsAnimation appear-done enter-done">
@@ -742,7 +791,7 @@ const AddAndManageThoughtLeaders = () => {
                                     }}
                                     className="card-title"
                                 >
-                                    Add Mood
+                                    Add Thought Leader
                                 </div>
                             ) : (
                                 <div
@@ -754,14 +803,14 @@ const AddAndManageThoughtLeaders = () => {
                                     }}
                                     className="card-title"
                                 >
-                                    Edit Mood
+                                    Edit Thought Leader
                                 </div>
                             )}
 
                             <div class="form-group">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">
-                                        Mood Name<span style={{ color: "red" }}>*</span> :
+                                        <h7 style={{ color: "red" }}>Name*</h7> :
                                     </label>
                                     <input
                                         type="text"
@@ -770,18 +819,49 @@ const AddAndManageThoughtLeaders = () => {
                                         value={name}
                                         onChange={(e) => setName(e?.target?.value)}
                                         aria-describedby="emailHelp"
-                                        placeholder="Enter mood name"
+                                        placeholder="Enter name"
                                     />
                                 </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">
+                                        <h7 style={{ color: "red" }}>Designation*</h7> :
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="exampleInputEmail1"
+                                        value={designation}
+                                        onChange={(e) => setDesignation(e?.target?.value)}
+                                        aria-describedby="emailHelp"
+                                        placeholder="Enter Designation name"
+                                    />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">
+                                        <h7 style={{ color: "red" }}>Description*</h7> :
+                                    </label>
+                                    <textarea
+                                        type="text"
+                                        class="form-control"
+                                        id="exampleInputEmail1"
+                                        value={description}
+                                        onChange={(e) => setDescription(e?.target?.value)}
+                                        aria-describedby="emailHelp"
+                                        placeholder="Enter description name"
+                                    />
+                                </div>
+
+
                                 <label for="exampleInputEmail1">
-                                    Image<span style={{ color: "red" }}>*</span> :
+                                    <h7 style={{ color: "red" }}>Image</h7> :
                                 </label>
 
                                 <input
                                     class="form-control"
                                     onChange={(e) => HandleImage(e)}
                                     type="file"
-                                    id="categoryBanner"
+                                    id="image"
                                     accept="image/*"
                                 />
                                 {imageLoader ? (
@@ -834,7 +914,7 @@ const AddAndManageThoughtLeaders = () => {
                                 }}
                                 className="card-title"
                             >
-                                Manage Mood
+                                Manage Thought Leaders
                             </div>
                             <DataTable columns={columns} data={allMood} pagination />
                         </div>

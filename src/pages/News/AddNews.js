@@ -14,7 +14,7 @@ const AddNews = () => {
     const navigate = useNavigate();
 
     const [catName, setCatName] = useState();
-
+    const [priority, setPriority] = useState("");
     const [newsImg, setNewsImg] = useState("");
     const [newsLink, setNewsLink] = useState("");
     const [imageLoader, setImgLoader] = useState(false);
@@ -33,10 +33,14 @@ const AddNews = () => {
         if (!newsImg) {
             return toast.error("Image is Required");
         }
+        if (!priority) {
+            return toast.error("priority is Required");
+        }
 
         const data = {
             image: newsImg,
-            link: newsLink
+            link: newsLink,
+            priority: priority
         }
 
         setIsLoading(true);
@@ -46,6 +50,7 @@ const AddNews = () => {
             toast.success("News Added Successfully")
             setNewsImg("");
             setNewsLink("");
+            setPriority("");
             setIsLoading(false);
             // navigate('/manage-category');
         } else {
@@ -99,6 +104,19 @@ const AddNews = () => {
                             name="newsLink"
                         />
                     </div>
+
+                    <div className="col">
+                        <label for="formGroupExampleInput">Piority</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            placeholder="Priority"
+                            onChange={(e) => setPriority(e.target.value)}
+                            value={priority}
+                            name="priority"
+                        />
+                    </div>
+
                     <div className="col">
                         <label for="formGroupExampleInput">Image</label>
                         <input

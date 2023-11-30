@@ -13,7 +13,7 @@ const EditNews = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const navigate = useNavigate();
     const params = useParams();
-
+    const [priority, setPriority] = useState("");
     const [catName, setCatName] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -34,10 +34,14 @@ const EditNews = () => {
         if (!newsImg) {
             return toast.error("Image is Required");
         }
+        if (!priority) {
+            return toast.error("priority is Required");
+        }
 
         const data = {
             image: newsImg,
-            link: newsLink
+            link: newsLink,
+            priority: priority
         }
         setIsLoading(true);
         const res = await HttpClient.requestData("update-news/" + params.id, "PUT", data);
@@ -46,6 +50,7 @@ const EditNews = () => {
             toast.success("News Updated Successfully")
             setNewsImg("");
             setNewsLink("");
+            setPriority("")
             navigate('/manage-news');
             setIsLoading(false);
         } else {
@@ -86,6 +91,7 @@ const EditNews = () => {
             const singNews = res?.data[0];
             setNewsLink(singNews?.link);
             setNewsImg(singNews?.image);
+            setPriority(singNews?.priority);
             setIsLoading(false);
         } else {
             setIsLoading(false);
@@ -115,6 +121,19 @@ const EditNews = () => {
                             name="newsLink"
                         />
                     </div>
+
+                    <div className="col">
+                        <label for="formGroupExampleInput">Piority</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            placeholder="Priority"
+                            onChange={(e) => setPriority(e.target.value)}
+                            value={priority}
+                            name="priority"
+                        />
+                    </div>
+
                     <div className="col">
                         <label for="formGroupExampleInput">Image</label>
                         <input
