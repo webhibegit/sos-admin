@@ -16,6 +16,8 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import AirlineSeatReclineNormalSharpIcon from "@mui/icons-material/AirlineSeatReclineNormalSharp";
+import EmojiPeopleSharpIcon from "@mui/icons-material/EmojiPeopleSharp";
 
 // icons
 import CategoryIcon from "@mui/icons-material/Category";
@@ -152,12 +154,12 @@ const sidebarItems = [
       {
         title: "Add Case Study",
         link: "/add-case-study",
-        icon: <NewspaperIcon />,
+        icon: <AirlineSeatReclineNormalSharpIcon />,
       },
       {
         title: "Manage Case Study",
         link: "/manage-case-study",
-        icon: <NewspaperIcon />,
+        icon: <AirlineSeatReclineNormalSharpIcon />,
       },
     ],
   },
@@ -169,12 +171,12 @@ const sidebarItems = [
       {
         title: "Add and Manage Thought Leaders",
         link: "/add-manage-thought-leaders",
-        icon: <NewspaperIcon />,
+        icon: <EmojiPeopleSharpIcon />,
       },
       {
         title: "Add and Manage Trailblazers",
         link: "/add-manage-trailblazers",
-        icon: <NewspaperIcon />,
+        icon: <EmojiPeopleSharpIcon />,
       },
     ],
   },

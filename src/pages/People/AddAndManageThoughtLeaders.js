@@ -436,7 +436,8 @@ import DataTable from "react-data-table-component";
 import Swal from "sweetalert2";
 import HttpClient from "../../utils/HttpClient";
 import { useParams } from "react-router-dom";
-import { Skeleton } from "@mui/material";
+import { Box, Skeleton } from "@mui/material";
+import Header from "../../components/Header";
 
 const AddAndManageThoughtLeaders = () => {
     const params = useParams();
@@ -541,7 +542,7 @@ const AddAndManageThoughtLeaders = () => {
     //for fetching all data
     const fetchAllMood = () => {
         setLoading(true);
-        HttpClient.requestData('user-view-people-thought', "GET", {})
+        HttpClient.requestData('admin-view-people-thought', "GET", {})
             .then((res) => {
                 console.log("ResAllBlog", res.data);
                 if (res && res?.status) {
@@ -645,7 +646,7 @@ const AddAndManageThoughtLeaders = () => {
         };
 
         if (name && designation && description) {
-            HttpClient.requestData("user-add-people-thought", "POST", data)
+            HttpClient.requestData("admin-add-people-thought", "POST", data)
                 .then((res) => {
                     if (res && res.status) {
                         toast.success(res.message);
@@ -737,7 +738,7 @@ const AddAndManageThoughtLeaders = () => {
             image: image,
         };
         if (name && designation && description) {
-            HttpClient.requestData("user-edit-people-thought/" + params.id, "PUT", data)
+            HttpClient.requestData("admin-edit-people-thought/" + params.id, "PUT", data)
                 .then((res) => {
                     if (res && res.status) {
                         toast.success("Updated Successfully");
@@ -917,6 +918,19 @@ const AddAndManageThoughtLeaders = () => {
                                 Manage Thought Leaders
                             </div>
                             <DataTable columns={columns} data={allMood} pagination />
+
+                            {/* <Box m="12px">
+                                <Header title="MANAGE Thought Leaders" subtitle="" />
+
+                                <div>
+                                    <DataTable
+                                        columns={columns}
+                                        data={allMood}
+                                        pagination
+                                        striped
+                                    />
+                                </div>
+                            </Box> */}
                         </div>
                     </div>
                 </div>

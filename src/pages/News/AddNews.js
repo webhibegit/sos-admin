@@ -104,7 +104,9 @@ const AddNews = () => {
                             name="newsLink"
                         />
                     </div>
+                </div>
 
+                <div className="row">
                     <div className="col">
                         <label for="formGroupExampleInput">Piority</label>
                         <input

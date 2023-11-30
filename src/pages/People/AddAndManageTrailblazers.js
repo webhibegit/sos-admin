@@ -72,7 +72,7 @@ const AddAndManageTrailblazers = () => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                HttpClient.requestData("user-del-people-trailblazer/" + id, "DELETE")
+                HttpClient.requestData("admin-del-people-trailblazer/" + id, "DELETE")
                     .then((res) => {
                         if (res && res.status) {
                             toast.success("Deleted Successfully");
@@ -124,9 +124,9 @@ const AddAndManageTrailblazers = () => {
     };
 
     //for fetch all data
-    const fetchAllMood = () => {
+    const fetchAllMood = async () => {
         setLoading(true);
-        HttpClient.requestData('user-view-people-trailblazer', "GET", {})
+        await HttpClient.requestData('admin-view-people-trailblazer', "GET", {})
             .then((res) => {
                 console.log("ResAllBlog", res.data);
                 if (res && res?.status) {
@@ -230,7 +230,7 @@ const AddAndManageTrailblazers = () => {
         };
 
         if (name && designation && description) {
-            HttpClient.requestData("user-add-people-trailblazer", "POST", data)
+            HttpClient.requestData("admin-add-people-trailblazer", "POST", data)
                 .then((res) => {
                     if (res && res.status) {
                         toast.success(res.message);
@@ -322,7 +322,7 @@ const AddAndManageTrailblazers = () => {
             image: image,
         };
         if (name && designation && description) {
-            HttpClient.requestData("user-edit-people-trailblazer/" + params.id, "PUT", data)
+            HttpClient.requestData("admin-edit-people-trailblazer/" + params.id, "PUT", data)
                 .then((res) => {
                     if (res && res.status) {
                         toast.success("Updated Successfully");
@@ -392,34 +392,38 @@ const AddAndManageTrailblazers = () => {
                                 </div>
                             )}
 
-                            <div class="form-group">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">
-                                        <h7 style={{ color: "red" }}>Name*</h7> :
-                                    </label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="exampleInputEmail1"
-                                        value={name}
-                                        onChange={(e) => setName(e?.target?.value)}
-                                        aria-describedby="emailHelp"
-                                        placeholder="Enter name"
-                                    />
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">
-                                        <h7 style={{ color: "red" }}>Designation*</h7> :
-                                    </label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="exampleInputEmail1"
-                                        value={designation}
-                                        onChange={(e) => setDesignation(e?.target?.value)}
-                                        aria-describedby="emailHelp"
-                                        placeholder="Enter Designation name"
-                                    />
+                            {/* <div class="form-group"> */}
+                            <form>
+                                <div className="row">
+                                    <div class="col">
+
+                                        <label for="exampleInputEmail1">
+                                            <h7 style={{ color: "red" }}>Name*</h7> :
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="exampleInputEmail1"
+                                            value={name}
+                                            onChange={(e) => setName(e?.target?.value)}
+                                            aria-describedby="emailHelp"
+                                            placeholder="Enter name"
+                                        />
+                                    </div>
+                                    <div class="col">
+                                        <label for="exampleInputEmail1">
+                                            <h7 style={{ color: "red" }}>Designation*</h7> :
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="exampleInputEmail1"
+                                            value={designation}
+                                            onChange={(e) => setDesignation(e?.target?.value)}
+                                            aria-describedby="emailHelp"
+                                            placeholder="Enter Designation name"
+                                        />
+                                    </div>
                                 </div>
 
                                 <div class="form-group">
@@ -478,7 +482,8 @@ const AddAndManageTrailblazers = () => {
                                         </div>
                                     </>
                                 )}
-                            </div>
+                                {/* </div> */}
+                            </form>
 
                             {hide ? (
                                 <button class="btn btn-primary" onClick={AddMood}>
