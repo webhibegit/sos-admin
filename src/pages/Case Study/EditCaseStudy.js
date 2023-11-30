@@ -143,7 +143,7 @@ const EditWork = () => {
         const res = await HttpClient.requestData("update-case-study/" + params.id, "PUT", data);
         // console.log("resCat", res)
         if (res && res?.status) {
-            toast.success("Case Study Added Successfully");
+            toast.success("Case Study Udated Successfully");
             setFormValue(initValue);
             navigate('/manage-case-study');
             setIsLoading(false);

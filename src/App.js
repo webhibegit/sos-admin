@@ -44,6 +44,8 @@ import AddCaseStudy from "./pages/Case Study/AddCaseStudy";
 import ManageCaseStudy from "./pages/Case Study/ManageCaseStudy";
 import EditCaseStudy from "./pages/Case Study/EditCaseStudy";
 import GoToTop from "./CustomComponents/GoToTop";
+import AddAndManageThoughtLeaders from "./pages/People/AddAndManageThoughtLeaders";
+import AddAndManageTrailblazers from "./pages/People/AddAndManageTrailblazers";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -98,6 +100,9 @@ function App() {
               <Route path="/add-case-study" element={<AddCaseStudy />} />
               <Route path="/manage-case-study" element={<ManageCaseStudy />} />
               <Route path="/edit-case-study/:id" element={<EditCaseStudy />} />
+
+              <Route path="/add-manage-thought-leaders" element={<AddAndManageThoughtLeaders />} />
+              <Route path="/add-manage-trailblazers" element={<AddAndManageTrailblazers />} />
 
               <Route path="*" element={<NotFoundPage />} />
 

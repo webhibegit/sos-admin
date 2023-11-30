@@ -2,7 +2,7 @@ import React from 'react'
 
 const ImageInDataTable = (props) => {
     const { src } = props;
-console.log(src,'srrrrrcccc')
+// console.log(src,'srrrrrcccc')
     return (
         <div>
             {

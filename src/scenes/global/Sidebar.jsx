@@ -18,11 +18,11 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 
 // icons
-import CategoryIcon from '@mui/icons-material/Category';
-import FollowTheSignsIcon from '@mui/icons-material/FollowTheSigns';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
-import FactoryIcon from '@mui/icons-material/Factory';
-import MovieIcon from '@mui/icons-material/Movie';
+import CategoryIcon from "@mui/icons-material/Category";
+import FollowTheSignsIcon from "@mui/icons-material/FollowTheSigns";
+import NewspaperIcon from "@mui/icons-material/Newspaper";
+import FactoryIcon from "@mui/icons-material/Factory";
+import MovieIcon from "@mui/icons-material/Movie";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -42,9 +42,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-
 const sidebarItems = [
-
   // category
   {
     heading: "Brand",
@@ -52,14 +50,14 @@ const sidebarItems = [
       {
         title: "Add Brand",
         link: "/add-category",
-        icon: <CategoryIcon />
+        icon: <CategoryIcon />,
       },
       {
         title: "Manage Brand",
         link: "/manage-category",
-        icon: <CategoryIcon />
+        icon: <CategoryIcon />,
       },
-    ]
+    ],
   },
 
   // //Brand
@@ -86,14 +84,14 @@ const sidebarItems = [
       {
         title: "Add Industry",
         link: "/add-industry",
-        icon: <FactoryIcon />
+        icon: <FactoryIcon />,
       },
       {
         title: "Manage Industry",
         link: "/manage-industry",
-        icon: <FactoryIcon />
+        icon: <FactoryIcon />,
       },
-    ]
+    ],
   },
 
   //Media
@@ -103,14 +101,14 @@ const sidebarItems = [
       {
         title: "Add Media",
         link: "/add-media",
-        icon: <MovieIcon />
+        icon: <MovieIcon />,
       },
       {
         title: "Manage Media",
         link: "/manage-media",
-        icon: <MovieIcon />
+        icon: <MovieIcon />,
       },
-    ]
+    ],
   },
 
   // work
@@ -120,14 +118,14 @@ const sidebarItems = [
       {
         title: "Add Work",
         link: "/add-work",
-        icon: <FollowTheSignsIcon />
+        icon: <FollowTheSignsIcon />,
       },
       {
         title: "Manage Work",
         link: "/manage-work",
-        icon: <FollowTheSignsIcon />
+        icon: <FollowTheSignsIcon />,
       },
-    ]
+    ],
   },
 
   // News
@@ -137,14 +135,14 @@ const sidebarItems = [
       {
         title: "Add News",
         link: "/add-news",
-        icon: <NewspaperIcon />
+        icon: <NewspaperIcon />,
       },
       {
         title: "Manage News",
         link: "/manage-news",
-        icon: <NewspaperIcon />
+        icon: <NewspaperIcon />,
       },
-    ]
+    ],
   },
 
   //Case Study
@@ -154,23 +152,37 @@ const sidebarItems = [
       {
         title: "Add Case Study",
         link: "/add-case-study",
-        icon: <NewspaperIcon />
+        icon: <NewspaperIcon />,
       },
       {
         title: "Manage Case Study",
         link: "/manage-case-study",
-        icon: <NewspaperIcon />
+        icon: <NewspaperIcon />,
       },
-    ]
+    ],
   },
 
+  //People
+  {
+    heading: "People",
+    subHeading: [
+      {
+        title: "Add and Manage Thought Leaders",
+        link: "/add-manage-thought-leaders",
+        icon: <NewspaperIcon />,
+      },
+      {
+        title: "Add and Manage Trailblazers",
+        link: "/add-manage-trailblazers",
+        icon: <NewspaperIcon />,
+      },
+    ],
+  },
+];
 
-]
-
-const Sidebar = () => {
+const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
 
   return (
@@ -249,7 +261,6 @@ const Sidebar = () => {
           )} */}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-
             {/* dashboard */}
             <Item
               title="Dashboard"
@@ -288,42 +299,36 @@ const Sidebar = () => {
               setSelected={setSelected}
             /> */}
 
+            {sidebarItems.map((item, i) => (
+              <Box key={i}>
+                <Typography
+                  variant="h6"
+                  color={colors.grey[300]}
+                  sx={{ m: "15px 0 5px 20px" }}
+                >
+                  {item?.heading}
+                </Typography>
 
-            {
-              sidebarItems.map((item, i) =>
-                <Box key={i}>
-                  <Typography
-                    variant="h6"
-                    color={colors.grey[300]}
-                    sx={{ m: "15px 0 5px 20px" }}
-                  >
-                    {item?.heading}
-                  </Typography>
+                {item?.subHeading?.map((ele, i) => (
+                  <Item
+                    key={i}
+                    title={ele?.title}
+                    to={ele?.link}
+                    icon={ele?.icon}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
+                ))}
 
-                  {
-                    item?.subHeading?.map((ele, i) =>
-                      <Item
-                        key={i}
-                        title={ele?.title}
-                        to={ele?.link}
-                        icon={ele?.icon}
-                        selected={selected}
-                        setSelected={setSelected}
-                      />
-                    )
-                  }
-
-                  {/* <Item
+                {/* <Item
                     title="Manage Cateory"
                     to="/manage-category"
                     icon={<CategoryIcon />}
                     selected={selected}
                     setSelected={setSelected}
                   /> */}
-                </Box>
-              )
-            }
-
+              </Box>
+            ))}
 
             {/* Category */}
             {/* <Box>
