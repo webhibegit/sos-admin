@@ -1,16 +1,3 @@
-// import React from 'react'
-
-// const AddAndManageTrailblazers = () => {
-//     return (
-//         <div>
-//             <h2>AddAndManageTrailblazers</h2>
-//         </div>
-//     )
-// }
-
-// export default AddAndManageTrailblazers
-
-
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -79,7 +66,7 @@ const AddAndManageTrailblazers = () => {
 
                             fetchAllMood();
                         } else {
-                            toast.error(res?.message);
+                            toast.error(res?.msg);
                         }
                     })
                     .catch((err) => {
@@ -242,7 +229,7 @@ const AddAndManageTrailblazers = () => {
                         let file = document.querySelector("#image");
                         file.value = "";
                     } else {
-                        toast.error(res?.message);
+                        toast.error(res?.msg);
                     }
                 })
                 .catch((err) => {
@@ -322,7 +309,7 @@ const AddAndManageTrailblazers = () => {
             image: image,
         };
         if (name && designation && description) {
-            HttpClient.requestData("admin-edit-people-trailblazer/" + params.id, "PUT", data)
+            HttpClient.requestData("admin-edit-people-trailblazer/" + id, "PUT", data)
                 .then((res) => {
                     if (res && res.status) {
                         toast.success("Updated Successfully");

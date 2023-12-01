@@ -489,7 +489,7 @@ const AddAndManageThoughtLeaders = () => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                HttpClient.requestData("user-del-people-thought/" + id, "DELETE")
+                HttpClient.requestData("admin-del-people-thought/" + id, "DELETE")
                     .then((res) => {
                         if (res && res.status) {
                             toast.success("Deleted Successfully");
@@ -658,7 +658,7 @@ const AddAndManageThoughtLeaders = () => {
                         let file = document.querySelector("#image");
                         file.value = "";
                     } else {
-                        toast.error(res?.message);
+                        toast.error(res?.msg);
                     }
                 })
                 .catch((err) => {
@@ -738,7 +738,7 @@ const AddAndManageThoughtLeaders = () => {
             image: image,
         };
         if (name && designation && description) {
-            HttpClient.requestData("admin-edit-people-thought/" + params.id, "PUT", data)
+            HttpClient.requestData("admin-edit-people-thought/" + id, "PUT", data)
                 .then((res) => {
                     if (res && res.status) {
                         toast.success("Updated Successfully");
@@ -752,7 +752,7 @@ const AddAndManageThoughtLeaders = () => {
                         let file = document.querySelector("#image");
                         file.value = "";
                     } else {
-                        toast.error(res?.message);
+                        toast.error(res?.msg);
                     }
                 })
                 .catch((err) => {
