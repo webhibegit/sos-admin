@@ -35,6 +35,8 @@ const EditWork = () => {
     const [catLoadet, setCatLoader] = useState(false);
     const [singleWork, setSingleWork] = useState({});
     const [isLoading, setIsLoading] = useState(false);
+    const [imgLoader, setImageLoader] = useState(false);
+    const [image, setImage] = useState("");
 
     console.log("formValueddf", formValue?.language)
 
@@ -104,12 +106,39 @@ const EditWork = () => {
                 priority: sinData?.priority,
                 media: sinData?.mediaID,
                 industry: sinData?.industryID,
-                language: sinData?.language
+                language: sinData?.language,
             })
+            setImage(res?.data[0]?.thumbNail)
         } else {
             setIsLoading(false);
         }
     }
+
+
+    //for thumbnail
+    const Handlethumbnail = async (e) => {
+        setImageLoader(true);
+        let file = e.target.files[0];
+        let data = new FormData();
+        data.append("image", file);
+
+        let res = await HttpClient.fileUplode("work-image-upload", "POST", data);
+
+        if (res && res.status) {
+            console.log("UploadImageRes", res?.data?.url);
+            setImage(res?.data?.url);
+        } else {
+            toast.error(res?.message);
+        }
+        setImageLoader(false);
+    };
+
+    //for cross button
+    const HandleCrossClick = () => {
+        setImage("");
+        let file = document.querySelector("#categoryBanner");
+        file.value = "";
+    };
 
     // image upload
     const handleImageChange = async (e) => {
@@ -199,7 +228,8 @@ const EditWork = () => {
             language: formValue.language,
             video: formValue.video,
             image: formValue.image,
-            priority: formValue?.priority
+            priority: formValue?.priority,
+            thumbNail: image
         }
         setIsLoading(true);
         const res = await HttpClient.requestData("update-work/" + params.id, "PUT", data);
@@ -207,6 +237,7 @@ const EditWork = () => {
         if (res && res?.status) {
             toast.success("Work Added Successfully");
             setFormValue(initValue);
+            setImage("");
             navigate('/manage-work');
             setIsLoading(false);
         } else {
@@ -448,6 +479,49 @@ const EditWork = () => {
                             onChange={handleChange}
                         />
                     </div>
+                </div>
+
+                <div>
+                    <label for="exampleInputEmail1">
+                        Thumbnail<span style={{ color: "red" }}></span> :
+                    </label>
+
+                    <input
+                        class="form-control"
+                        onChange={(e) => Handlethumbnail(e)}
+                        type="file"
+                        id="categoryBanner"
+                        accept="image/*"
+                    />
+                    {imgLoader ? (
+                        <>
+                            <div>
+                                <Skeleton variant="rectangular" width={100} height={100} />
+                            </div>
+                        </>
+                    ) : null}
+                    {image && (
+                        <>
+                            <div>
+                                <img
+                                    style={{
+                                        height: "10%",
+                                        width: "10%",
+                                        marginTop: "12px",
+                                        borderRadius: "5px",
+                                    }}
+                                    src={image}
+                                />
+                                <button
+                                    onClick={() => HandleCrossClick()}
+                                    style={{ color: "red" }}
+                                    type="button"
+                                    class="btn-close"
+                                    aria-label="Close"
+                                ></button>
+                            </div>
+                        </>
+                    )}
                 </div>
 
                 {/* Button */}
