@@ -125,7 +125,7 @@ const AddAndManageTrailblazers = () => {
                             name: item?.name,
                             designation: item?.designation,
                             description: item?.description,
-                            Image: (
+                            image: (
                                 <>
                                     {item?.image ? (
                                         <img
@@ -449,23 +449,21 @@ const AddAndManageTrailblazers = () => {
                                 ) : null}
                                 {image && (
                                     <>
-                                        <div>
+                                        <div style={{ position: "relative", width: "130px", height: "130px", borderRadius: "5px", marginTop: "12px", marginBottom: "10px" }}>
                                             <img
                                                 style={{
-                                                    height: "10%",
-                                                    width: "10%",
-                                                    marginTop: "12px",
-                                                    borderRadius: "5px",
+                                                    height: "auto",
+                                                    width: "100%",
                                                 }}
                                                 src={image}
                                             />
                                             <button
                                                 onClick={() => HandleCrossClick()}
-                                                style={{ color: "red" }}
+                                                style={{ color: "red", fontSize: "20px", position: "absolute", top: "0", right: "0", zIndex: "2", width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center", border: "none" }}
                                                 type="button"
                                                 class="btn-close"
                                                 aria-label="Close"
-                                            ></button>
+                                            >X</button>
                                         </div>
                                     </>
                                 )}

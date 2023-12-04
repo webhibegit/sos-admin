@@ -88,7 +88,7 @@ const ManageWork = () => {
                 language: item?.language,
                 priority: item?.priority,
                 image: <ImageInDataTable src={item?.image?.[0]} />,
-                thumbNail: item?.thumbNail,
+                thumbNail: <ImageInDataTable src={item?.thumbNail} />,
                 action: <EditDeleteIcon
                     onClickEdit={() => handleEdit(item?._id)}
                     onClickDelete={() => handleDelete(item?._id)}
