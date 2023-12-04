@@ -220,7 +220,7 @@ const AddAndManageTrailblazers = () => {
             HttpClient.requestData("admin-add-people-trailblazer", "POST", data)
                 .then((res) => {
                     if (res && res.status) {
-                        toast.success(res.message);
+                        toast.success(res.msg);
                         fetchAllMood();
                         setImage("");
                         setName("");

@@ -650,7 +650,7 @@ const AddAndManageThoughtLeaders = () => {
             HttpClient.requestData("admin-add-people-thought", "POST", data)
                 .then((res) => {
                     if (res && res.status) {
-                        toast.success(res.message);
+                        toast.success(res.msg);
                         fetchAllMood();
                         setImage("");
                         setName("");
