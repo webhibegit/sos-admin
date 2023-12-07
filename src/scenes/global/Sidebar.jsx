@@ -169,12 +169,12 @@ const sidebarItems = [
     heading: "People",
     subHeading: [
       {
-        title: "Add and Manage Thought Leaders",
+        title: "Add Thought Leaders",
         link: "/add-manage-thought-leaders",
         icon: <EmojiPeopleSharpIcon />,
       },
       {
-        title: "Add and Manage Trailblazers",
+        title: "Add Trailblazers",
         link: "/add-manage-trailblazers",
         icon: <EmojiPeopleSharpIcon />,
       },
