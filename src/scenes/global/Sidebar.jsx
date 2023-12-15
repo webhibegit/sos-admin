@@ -180,6 +180,24 @@ const sidebarItems = [
       },
     ],
   },
+
+  //career
+  {
+    heading: "Career",
+    subHeading: [
+      {
+        title: "Add Position",
+        link: "/add-postion",
+        icon: <EmojiPeopleSharpIcon />,
+      },
+      {
+        title: "Applied Position",
+        link: "/add-manage-trailblazers",
+        icon: <EmojiPeopleSharpIcon />,
+      },
+    ],
+  },
+
 ];
 
 const Sidebar = ({ isCollapsed, setIsCollapsed }) => {

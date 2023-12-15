@@ -46,6 +46,7 @@ import EditCaseStudy from "./pages/Case Study/EditCaseStudy";
 import GoToTop from "./CustomComponents/GoToTop";
 import AddAndManageThoughtLeaders from "./pages/People/AddAndManageThoughtLeaders";
 import AddAndManageTrailblazers from "./pages/People/AddAndManageTrailblazers";
+import AddPosition from "./pages/Career/AddPosition";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -103,6 +104,8 @@ function App() {
 
               <Route path="/add-manage-thought-leaders" element={<AddAndManageThoughtLeaders />} />
               <Route path="/add-manage-trailblazers" element={<AddAndManageTrailblazers />} />
+
+              <Route path="add-postion" element={<AddPosition/>}/>
 
               <Route path="*" element={<NotFoundPage />} />
 
