@@ -47,6 +47,7 @@ import GoToTop from "./CustomComponents/GoToTop";
 import AddAndManageThoughtLeaders from "./pages/People/AddAndManageThoughtLeaders";
 import AddAndManageTrailblazers from "./pages/People/AddAndManageTrailblazers";
 import AddPosition from "./pages/Career/AddPosition";
+import AppliedPosition from "./pages/Career/AppliedPosition";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -105,7 +106,8 @@ function App() {
               <Route path="/add-manage-thought-leaders" element={<AddAndManageThoughtLeaders />} />
               <Route path="/add-manage-trailblazers" element={<AddAndManageTrailblazers />} />
 
-              <Route path="add-postion" element={<AddPosition/>}/>
+              <Route path="/add-postion" element={<AddPosition/>}/>
+              <Route path="/apllied-postion" element={<AppliedPosition/>}/>
 
               <Route path="*" element={<NotFoundPage />} />
 

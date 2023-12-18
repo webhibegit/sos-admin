@@ -192,7 +192,7 @@ const sidebarItems = [
       },
       {
         title: "Applied Position",
-        link: "/add-manage-trailblazers",
+        link: "/apllied-postion",
         icon: <EmojiPeopleSharpIcon />,
       },
     ],

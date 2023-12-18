@@ -9,13 +9,13 @@ const AddCategory = () => {
     const [catName, setCatName] = useState()
     const [isLoading, setIsLoading] = useState(false);
     const initValue = {
-        type: "",
+        type: "National Brand",
         image: ""
     }
     const [formValue, setFormValue] = useState(initValue);
     const [imageLoader, setImgLoader] = useState(false);
 
-    console.log("catname",catName,"formvalue",formValue)
+    console.log("catname", catName, "formvalue", formValue)
 
     const handleSubmit = async (e) => {
         // console.log("valueAddCareersdd");
@@ -24,11 +24,14 @@ const AddCategory = () => {
         if (!catName) {
             return toast.error("Brand Name is Required");
         }
+        if (!formValue?.image) {
+            return toast.error("Brand Image is Required");
+        }
 
         const data = {
             name: catName,
-            type:formValue?.type,
-            logoUrl:formValue?.image
+            type: formValue?.type,
+            logoUrl: formValue?.image
 
         }
         setIsLoading(true);
@@ -105,7 +108,7 @@ const AddCategory = () => {
 
                     {/* dimention */}
                     <div>
-                        (700 x 700 px)
+                        (127 x 60 px)
                     </div>
 
                     {/* picture */}
@@ -152,6 +155,7 @@ const AddCategory = () => {
                                 type="radio"
                                 name="Brand"
                                 id="inlineRadio1"
+                                checked={formValue?.type === "National Brand" ? true : false}
                                 value="National Brand"
                                 onChange={() => setFormValue(prev => ({ ...prev, type: "National Brand" }))}
                             />
@@ -164,6 +168,7 @@ const AddCategory = () => {
                                 type="radio"
                                 name="Brand"
                                 id="inlineRadio1"
+                                checked={formValue?.type === "Regional Brand" ? true : false}
                                 value="Regional Brand"
                                 onChange={() => setFormValue(prev => ({ ...prev, type: "Regional Brand" }))}
                             />
