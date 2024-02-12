@@ -1,23 +1,19 @@
 import { useTheme } from '@emotion/react';
-import { Box, Typography, useMediaQuery } from '@mui/material';
+import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import DataTable from 'react-data-table-component';
 import { tokens } from '../../theme';
 import HttpClient from '../../utils/HttpClient';
-import { MdDelete } from 'react-icons/md';
-import EditDeleteIcon from '../../CustomComponents/EditDeleteIcon';
 import toast from 'react-hot-toast';
+import EditDeleteIcon from '../../CustomComponents/EditDeleteIcon';
 import { DeleteConfirmModal } from '../../CustomComponents/DeleteConfirmModal';
 import Header from '../../components/Header';
 import { useNavigate } from 'react-router-dom';
 import CustomLoader from '../../CustomComponents/loader/CustomLoader';
-import ImageInDataTable from '../../CustomComponents/ImageInDataTable';
 
 
-const ManageCaseStudy = () => {
+const ManageSubBrand = () => {
     const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
-    const isNonMobile = useMediaQuery("(min-width:600px)");
 
     const navigate = useNavigate();
 
@@ -30,24 +26,20 @@ const ManageCaseStudy = () => {
             selector: row => row.sl,
         },
         {
-            name: 'Title',
-            selector: row => row.title,
+            name: 'Brand Name',
+            selector: row => row.name,
         },
         {
-            name: 'Subtitle',
-            selector: row => row.subtitle,
+            name: 'Brand Type',
+            selector: row => row.type,
         },
         {
-            name: 'Priority',
-            selector: row => row.priority,
+            name: 'Sub-Brand Name',
+            selector: row => row.subBrandName,
         },
         {
-            name: 'Video Link',
-            selector: row => row.videoLink,
-        },
-        {
-            name: 'Image',
-            selector: row => row.image,
+            name: 'Brand Image',
+            selector: row => (<div style={{ width: "150px", height: "150px" }}>{row.image}</div>),
         },
         {
             name: 'Action',
@@ -55,25 +47,24 @@ const ManageCaseStudy = () => {
         }
     ];
 
-    const getCaseStudyData = async () => {
+    // fetch Category DAta
+    const getCategoryData = async () => {
         setIsLoading(true);
-        const res = await HttpClient.requestData('view-case-study', "GET", {});
-        // console.log("resGetCat", res)
+        const res = await HttpClient.requestData('view-subbrand', "GET", {});
+        console.log("resGetCat", res)
         let apiData = []
         if (res && res?.status) {
             setIsLoading(false);
             apiData = res?.data?.map((item, i) => ({
-                id: i + 1,
+                // id: i + 1,
                 sl: i + 1,
-                name: item?.catName,
-                title: item?.title,
-                subtitle: item?.subTitle,
-                priority: item?.priority,
-                videoLink: item?.video ? item?.video : "-",
-                image: <ImageInDataTable src={item?.image?.[0]} />,
+                name: item?.name,
+                type: item?.type,
+                subBrandName: item?.Brand?.[0]?.name,
+                image: <img style={{ width: "150px", height: "150px" }} src={item?.logoUrl} alt={"logo"} />,
                 action: <EditDeleteIcon
-                    onClickEdit={() => handleEdit(item?._id)}
-                    onClickDelete={() => handleDelete(item?._id)}
+                    onClickEdit={(e) => handleEdit(item)}
+                    onClickDelete={(e) => handleDelete(item?._id)}
                 />
             }));
         } else {
@@ -83,18 +74,18 @@ const ManageCaseStudy = () => {
     }
 
     // edit
-    const handleEdit = (id) => {
-        navigate("/edit-case-study/" + id)
+    const handleEdit = (data) => {
+        navigate("/edit-sub-brand/" + data?._id, { state: { singleData: data } })
     }
 
     // delete
     const handleDelete = (id) => {
         const del = async () => {
             setIsLoading(true);
-            const res = await HttpClient.requestData("delete-case-study/" + id, "DELETE")
+            const res = await HttpClient.requestData("delete-subbrand/" + id, "DELETE")
             if (res && res?.status) {
-                getCaseStudyData();
-                toast.success("Case Study Deleted Successfully");
+                getCategoryData();
+                toast.success("Sub-Brand Deleted Successfully");
             } else {
                 toast.error(res?.message || "Something Wrong");
             }
@@ -103,16 +94,17 @@ const ManageCaseStudy = () => {
         DeleteConfirmModal(del);
     }
 
+
     useEffect(() => {
-        getCaseStudyData();
+        getCategoryData();
     }, [])
 
     return (
         <div>
-            <CustomLoader loading={isLoading} />
-
             <Box m="12px">
-                <Header title="MANAGE CASE STUDY" subtitle="" />
+                <CustomLoader loading={isLoading} />
+
+                <Header title="MANAGE BRAND" subtitle="" />
 
                 <div>
                     <DataTable
@@ -124,9 +116,8 @@ const ManageCaseStudy = () => {
                 </div>
             </Box>
 
-
         </div>
     )
 }
 
-export default ManageCaseStudy
+export default ManageSubBrand

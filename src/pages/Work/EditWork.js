@@ -17,6 +17,7 @@ const EditWork = () => {
 
     const initValue = {
         catID: "",
+        subBrandId: "",
         title: "",
         subTitle: "",
         description: "",
@@ -37,8 +38,9 @@ const EditWork = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [imgLoader, setImageLoader] = useState(false);
     const [image, setImage] = useState("");
+    const [subBrandData, setSubBrandData] = useState([]);
 
-    console.log("formValueddf", formValue?.language)
+    console.log("formValueddf", formValue)
 
     // other inputs change
     const handleChange = (e) => {
@@ -86,12 +88,25 @@ const EditWork = () => {
         }
     }
 
+    //get Sub-Brand data
+    const getSubBrandData = async (id) => {
+        setCatLoader(true)
+        const res = await HttpClient.requestData("brand-subbrands/" + id, 'GET', {})
+        // console.log("fvfvc", res);
+        if (res && res.status) {
+            setCatLoader(false)
+            setSubBrandData(res?.data)
+        } else {
+            setCatLoader(false);
+            toast.error(res?.message || "error")
+        }
+    }
 
     // get single work data
     const getSingleWork = async () => {
         setIsLoading(true);
         const res = await HttpClient.requestData("view-single-work/" + params.id, "GET", {})
-        console.log("resSingg", res);
+        // console.log("resSingg", res);
         if (res && res?.status) {
             setIsLoading(false);
             setSingleWork(res?.data);
@@ -107,13 +122,13 @@ const EditWork = () => {
                 media: sinData?.mediaID,
                 industry: sinData?.industryID,
                 language: sinData?.language,
+                subBrandId: sinData?.SubBrand?.[0]?._id ? sinData?.SubBrand?.[0]?._id : ""
             })
             setImage(res?.data[0]?.thumbNail)
         } else {
             setIsLoading(false);
         }
     }
-
 
     //for thumbnail
     const Handlethumbnail = async (e) => {
@@ -170,10 +185,10 @@ const EditWork = () => {
             toast.error("Brand Name is required");
             return true
         }
-        if (!formValue?.title) {
-            toast.error("Title is required");
-            return true
-        }
+        // if (!formValue?.title) {
+        //     toast.error("Title is required");
+        //     return true
+        // }
         if (!formValue?.subTitle) {
             toast.error("Subtitle is required");
             return true
@@ -220,6 +235,7 @@ const EditWork = () => {
 
         const data = {
             catID: formValue.catID,
+            subbrandID: formValue.subBrandId,
             title: formValue.title,
             subTitle: formValue.subTitle,
             description: formValue.description,
@@ -253,6 +269,13 @@ const EditWork = () => {
         getSingleWork();
     }, [])
 
+    useEffect(() => {
+        if (formValue.catID) {
+            getSubBrandData(formValue.catID)
+        }
+    }, [formValue.catID])
+
+
 
     return (
         <Box m="20px">
@@ -269,7 +292,10 @@ const EditWork = () => {
                             aria-label="Default select example"
                             name="catID"
                             value={formValue.catID}
-                            onChange={handleChange}
+                            onChange={(e) => {
+                                handleChange(e)
+                                setFormValue(prev => ({ ...prev, subBrandId: "" }))
+                            }}
                         >
                             <option value={""} disabled>Select Brand</option>
                             {catData.map((item, i) =>
@@ -278,6 +304,28 @@ const EditWork = () => {
                             }
                         </select>
                     </div>
+
+                    {/* sub brand */}
+                    <div className="col">
+                        <label htmlFor="formGroupExampleInput">Select Sub-Brand</label>
+                        <select
+                            class="form-control"
+                            aria-label="Default select example"
+                            name="subBrandId"
+                            value={formValue.subBrandId}
+                            onChange={handleChange}
+                        >
+                            <option value={""} disabled>Select Sub-Brand</option>
+                            {subBrandData.map((item, i) =>
+                                <option key={i} value={item?._id}>{item?.name}</option>
+                            )
+                            }
+                        </select>
+                    </div>
+
+                </div>
+
+                <div className="row">
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Title</label>
                         <input
@@ -289,9 +337,6 @@ const EditWork = () => {
                             onChange={handleChange}
                         />
                     </div>
-                </div>
-
-                <div className="row">
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Subtitle</label>
                         <input
@@ -303,6 +348,10 @@ const EditWork = () => {
                             onChange={handleChange}
                         />
                     </div>
+
+                </div>
+
+                <div className="row">
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Description</label>
                         <textarea

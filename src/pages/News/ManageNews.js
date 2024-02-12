@@ -33,6 +33,10 @@ const ManageNews = () => {
             selector: row => row.image,
         },
         {
+            name: 'Thumbnail Image',
+            selector: row => row.thumbNailImg,
+        },
+        {
             name: 'Link',
             selector: row => row.link,
         },
@@ -58,6 +62,7 @@ const ManageNews = () => {
                 id: i + 1,
                 sl: i + 1,
                 image: <ImageInDataTable src={item?.image} />,
+                thumbNailImg: <ImageInDataTable src={item?.thumbnailImage} />,
                 link: item?.link,
                 priority: item?.priority,
                 action: <EditDeleteIcon

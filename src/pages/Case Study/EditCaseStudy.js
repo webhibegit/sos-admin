@@ -21,8 +21,8 @@ const EditWork = () => {
         subTitle: "",
         description: "",
         priority: "",
-
-        image: []
+        image: [],
+        videoLink: ""
     }
     const [formValue, setFormValue] = useState(initValue);
     const [catData, setCatData] = useState([]);
@@ -67,7 +67,8 @@ const EditWork = () => {
                 subTitle: sinData?.subTitle,
                 description: sinData?.description,
                 image: sinData?.image,
-                priority: sinData?.priority
+                priority: sinData?.priority,
+                videoLink: sinData?.video
             })
         } else {
             setIsLoading(false);
@@ -137,7 +138,8 @@ const EditWork = () => {
             subTitle: formValue.subTitle,
             description: formValue.description,
             image: formValue.image,
-            priority: formValue?.priority
+            priority: formValue?.priority,
+            video: formValue.videoLink
         }
         setIsLoading(true);
         const res = await HttpClient.requestData("update-case-study/" + params.id, "PUT", data);
@@ -223,6 +225,23 @@ const EditWork = () => {
 
                     </div>
 
+                    {/* video link */}
+                    <div className="col-6">
+                        <label htmlFor="formGroupExampleInput">Video Link</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Video Link"
+                            name="videoLink"
+                            value={formValue.videoLink}
+                            onChange={handleChange}
+                        />
+                    </div>
+                </div>
+
+                <div className="row">
+
+                    {/* Image */}
                     <div className="col-sm-6">
                         <label htmlFor="formGroupExampleInput">Image</label>
                         <input
@@ -268,9 +287,9 @@ const EditWork = () => {
                             )
                             }
                         </div>
-
                     </div>
                 </div>
+
 
 
                 {/* Button */}

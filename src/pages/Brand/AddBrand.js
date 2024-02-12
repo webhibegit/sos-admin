@@ -75,7 +75,7 @@ const AddBrand = () => {
             image: image,
         }
 
-        console.log("Dsata", data);
+        // console.log("Dsata", data);
         setIsLoading(true);
         const res = await HttpClient.requestData("add-brand", "POST", data);
         if (res && res?.status) {

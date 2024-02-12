@@ -39,43 +39,51 @@ const Login = () => {
     };
 
     return (
-        <div>
+        <div className='container'>
             <Box m="20px">
                 <Header title="Log in" subtitle="" />
 
 
                 <form onSubmit={handleSubmit}>
                     <Box
-                        display="grid"
-                        gap="30px"
+                        // display="grid"
+                        // gap="30px"
                         gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+                        // display="flex" justifyContent="center"
                         sx={{
                             "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
+                            width: "75%"
                         }}
                     >
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="Email"
-                            onChange={(e) => setEmail(e.target.value)}
-                            value={email}
-                            name="email"
-                            sx={{ gridColumn: "span 2" }}
-                        />
-                        <TextField
-                            fullWidth
-                            variant="filled"
-                            type="text"
-                            label="Password"
-                            onChange={(e) => setPassword(e.target.value)}
-                            value={passord}
-                            name="password"
-                            sx={{ gridColumn: "span 2" }}
-                        />
+                        <div>
+                            <TextField
+                                fullWidth
+                                variant="filled"
+                                type="text"
+                                label="Email"
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
+                                name="email"
+                                sx={{ gridColumn: "span 2" }}
+                            />
+                        </div>
+                        <div>
+
+                            <TextField
+                                fullWidth
+                                variant="filled"
+                                type="text"
+                                label="Password"
+                                onChange={(e) => setPassword(e.target.value)}
+                                value={passord}
+                                name="password"
+                                sx={{ gridColumn: "span 2", marginTop: "10px" }}
+
+                            />
+                        </div>
                     </Box>
 
-                    <Box display="flex" justifyContent="end" mt="20px">
+                    <Box display="flex" justifyContent="start" mt="20px">
                         <Button
                             type="submit"
                             color="secondary"

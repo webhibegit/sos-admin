@@ -48,6 +48,9 @@ import AddAndManageThoughtLeaders from "./pages/People/AddAndManageThoughtLeader
 import AddAndManageTrailblazers from "./pages/People/AddAndManageTrailblazers";
 import AddPosition from "./pages/Career/AddPosition";
 import AppliedPosition from "./pages/Career/AppliedPosition";
+import AddSubBrand from "./pages/SubBrand/AddSubBrand";
+import ManageSubBrand from "./pages/SubBrand/ManageSubBrand";
+import EditSubBrand from "./pages/SubBrand/EditSubBrand";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -79,6 +82,10 @@ function App() {
               <Route path="/manage-category" element={<ManageCAtegory />} />
               <Route path="/edit-category/:id" element={<EditCategory />} />
 
+              <Route path="/add-sub-brand" element={<AddSubBrand />} />
+              <Route path="/manage-sub-brand" element={<ManageSubBrand />} />
+              <Route path="/edit-sub-brand/:id" element={<EditSubBrand />} />
+
               {/* <Route path="/add-brand" element={<AddBrand/>} />
               <Route path="/manage-brand" element={<ManageBrand />} />
               <Route path="/edit-brand" element={<EditBrand />} /> */}
@@ -106,8 +113,8 @@ function App() {
               <Route path="/add-manage-thought-leaders" element={<AddAndManageThoughtLeaders />} />
               <Route path="/add-manage-trailblazers" element={<AddAndManageTrailblazers />} />
 
-              <Route path="/add-postion" element={<AddPosition/>}/>
-              <Route path="/apllied-postion" element={<AppliedPosition/>}/>
+              <Route path="/add-postion" element={<AddPosition />} />
+              <Route path="/apllied-postion" element={<AppliedPosition />} />
 
               <Route path="*" element={<NotFoundPage />} />
 

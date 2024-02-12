@@ -13,7 +13,8 @@ const EditCategory = () => {
     const params = useParams();
     const initValue = {
         type: "",
-        image: ""
+        image: "",
+        priority: ""
     }
     const [formValue, setFormValue] = useState(initValue);
     const [imageLoader, setImgLoader] = useState(false);
@@ -31,12 +32,15 @@ const EditCategory = () => {
         if (!formValue?.image) {
             return toast.error("Brand Image is Required");
         }
+        if (!formValue?.priority) {
+            return toast.error("Priority is Required");
+        }
 
         const data = {
             name: catName,
             type: formValue?.type,
-            logoUrl: formValue?.image
-
+            logoUrl: formValue?.image,
+            priority: formValue.priority
         }
 
         setIsLoading(true);
@@ -60,7 +64,12 @@ const EditCategory = () => {
         if (res && res?.status) {
             const sinData = res?.data[0]
             setCatName(sinData?.name)
-            setFormValue(prev => ({ ...prev, type:sinData?.type, image:sinData.logoUrl}))
+            setFormValue(prev => ({
+                ...prev,
+                type: sinData?.type,
+                image: sinData?.logoUrl,
+                priority: sinData?.priority
+            }))
             setIsLoading(false);
         } else {
             setIsLoading(false);
@@ -71,8 +80,9 @@ const EditCategory = () => {
         // console.log("pallab", e.target.value)
         setCatName(e.target.value)
     }
-      // image upload
-      const handleImageChange = async (e) => {
+
+    // image upload
+    const handleImageChange = async (e) => {
         let file = e.target.files[0]
         let data = new FormData();
         data.append("image", file);
@@ -164,41 +174,53 @@ const EditCategory = () => {
                 </div>
 
                 {/*Brand type*/}
-                <div className="col">
-                    <div>
-                        <label htmlFor="formGroupExampleInput">Brand Type</label>
+                <div className="row">
+                    <div className="col">
+                        <label for="formGroupExampleInput">Priority</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            placeholder="Priority"
+                            onChange={(e) => setFormValue(prev => ({ ...prev, priority: e.target.value }))}
+                            value={formValue.priority}
+                            name="category"
+                        />
                     </div>
-                    <div className="d-flex flex-wrap">
-                        <div classname="form-check form-check-inline" style={{ marginRight: "1rem" }}>
-                            <input
-                                classname="form-check-input"
-                                type="radio"
-                                name="Brand"
-                                id="inlineRadio1"
-                                checked={formValue?.type === "National Brand" ? true : false}
-                                value="National Brand"
-                                onChange={() => setFormValue(prev => ({ ...prev, type: "National Brand" }))}
-                            />
-                            <label classname="form-check-label" for="inlineRadio1">National Brand</label>
+                    <div className="col">
+                        <div>
+                            <label htmlFor="formGroupExampleInput">Brand Type</label>
                         </div>
+                        <div className="d-flex flex-wrap">
+                            <div classname="form-check form-check-inline" style={{ marginRight: "1rem" }}>
+                                <input
+                                    classname="form-check-input"
+                                    type="radio"
+                                    name="Brand"
+                                    id="inlineRadio1"
+                                    checked={formValue?.type === "National Brand" ? true : false}
+                                    value="National Brand"
+                                    onChange={() => setFormValue(prev => ({ ...prev, type: "National Brand" }))}
+                                />
+                                <label classname="form-check-label" for="inlineRadio1">National Brand</label>
+                            </div>
 
-                        <div classname="form-check form-check-inline" style={{ marginRight: "1rem" }}>
-                            <input
-                                classname="form-check-input"
-                                type="radio"
-                                name="Brand"
-                                id="inlineRadio1"
-                                checked={formValue?.type === "Regional Brand" ? true : false}
-                                value="Regional Brand"
-                                onChange={() => setFormValue(prev => ({ ...prev, type: "Regional Brand" }))}
-                            />
-                            <label classname="form-check-label" for="inlineRadio1">Regional Brand</label>
+                            <div classname="form-check form-check-inline" style={{ marginRight: "1rem" }}>
+                                <input
+                                    classname="form-check-input"
+                                    type="radio"
+                                    name="Brand"
+                                    id="inlineRadio1"
+                                    checked={formValue?.type === "Regional Brand" ? true : false}
+                                    value="Regional Brand"
+                                    onChange={() => setFormValue(prev => ({ ...prev, type: "Regional Brand" }))}
+                                />
+                                <label classname="form-check-label" for="inlineRadio1">Regional Brand</label>
+                            </div>
+
+
                         </div>
-
-
                     </div>
                 </div>
-
                 <Box display="flex" justifyContent="end" mt="20px">
                     <Button
                         type="submit"

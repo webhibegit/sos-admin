@@ -19,12 +19,16 @@ import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import AirlineSeatReclineNormalSharpIcon from "@mui/icons-material/AirlineSeatReclineNormalSharp";
 import EmojiPeopleSharpIcon from "@mui/icons-material/EmojiPeopleSharp";
 
+
 // icons
 import CategoryIcon from "@mui/icons-material/Category";
 import FollowTheSignsIcon from "@mui/icons-material/FollowTheSigns";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import FactoryIcon from "@mui/icons-material/Factory";
 import MovieIcon from "@mui/icons-material/Movie";
+import SpokeIcon from '@mui/icons-material/Spoke';
+import ControlCameraIcon from '@mui/icons-material/ControlCamera';
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -58,6 +62,23 @@ const sidebarItems = [
         title: "Manage Brand",
         link: "/manage-category",
         icon: <CategoryIcon />,
+      },
+    ],
+  },
+
+  //Sub Brand
+  {
+    heading: "Sub-Brand",
+    subHeading: [
+      {
+        title: "Add Sub-Brand",
+        link: "/add-sub-brand",
+        icon: <SpokeIcon />,
+      },
+      {
+        title: "Manage Sub-Brand",
+        link: "/manage-sub-brand",
+        icon: <SpokeIcon />,
       },
     ],
   },
@@ -188,12 +209,12 @@ const sidebarItems = [
       {
         title: "Add Position",
         link: "/add-postion",
-        icon: <EmojiPeopleSharpIcon />,
+        icon: <ControlCameraIcon />,
       },
       {
         title: "Applied Position",
         link: "/apllied-postion",
-        icon: <EmojiPeopleSharpIcon />,
+        icon: <ControlCameraIcon />,
       },
     ],
   },

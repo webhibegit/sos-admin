@@ -13,6 +13,7 @@ const AddWork = () => {
     const [catName, setCatName] = useState()
     const initValue = {
         catID: "",
+        subBrandId: "",
         title: "",
         subTitle: "",
         media: "",
@@ -31,8 +32,9 @@ const AddWork = () => {
     const [imgLoader, setImageLoader] = useState(false);
     const [catLoadet, setCatLoader] = useState(false)
     const [image, setImage] = useState("");
+    const [subBrandData, setSubBrandData] = useState([]);
 
-    console.log("formValueddf", formValue)
+    console.log("subBrandData", subBrandData)
 
     // other inputs change
     const handleChange = (e) => {
@@ -80,6 +82,21 @@ const AddWork = () => {
             toast.error(res?.message || "error")
         }
     }
+
+    //get Sub-Brand data
+    const getSubBrandData = async (id) => {
+        setCatLoader(true)
+        const res = await HttpClient.requestData("brand-subbrands/" + id, 'GET', {})
+        // console.log("fvfvc", res);
+        if (res && res.status) {
+            setCatLoader(false)
+            setSubBrandData(res?.data)
+        } else {
+            setCatLoader(false);
+            toast.error(res?.message || "error")
+        }
+    }
+
 
     // video upload
     const handleVideoUpload = async (e) => {
@@ -149,10 +166,10 @@ const AddWork = () => {
             toast.error("Brand Name is required");
             return true
         }
-        if (!formValue?.title) {
-            toast.error("Title is required");
-            return true
-        }
+        // if (!formValue?.title) {
+        //     toast.error("Title is required");
+        //     return true
+        // }
         if (!formValue?.subTitle) {
             toast.error("Subtitle is required");
             return true
@@ -200,6 +217,7 @@ const AddWork = () => {
 
         const data = {
             catID: formValue.catID,
+            subbrandID: formValue.subBrandId,
             title: formValue.title,
             subTitle: formValue.subTitle,
             mediaID: formValue.media,
@@ -217,6 +235,7 @@ const AddWork = () => {
         if (res && res?.status) {
             toast.success("Work Added Successfully");
             setFormValue(initValue);
+            setImage("")
             // navigate('/manage-category');
             setIsLoading(false);
         } else {
@@ -225,11 +244,18 @@ const AddWork = () => {
         }
     };
 
+
     useEffect(() => {
         getCategoryData();
         getIndustryData();
         getMediaData();
     }, [])
+
+    useEffect(() => {
+        if (formValue.catID) {
+            getSubBrandData(formValue.catID)
+        }
+    }, [formValue.catID])
 
 
     return (
@@ -240,6 +266,7 @@ const AddWork = () => {
 
             <form>
                 <div className="row">
+                    {/* brand */}
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Select Brand</label>
                         <select
@@ -256,6 +283,28 @@ const AddWork = () => {
                             }
                         </select>
                     </div>
+
+                    {/* sub brand */}
+                    <div className="col">
+                        <label htmlFor="formGroupExampleInput">Select Sub-Brand</label>
+                        <select
+                            class="form-control"
+                            aria-label="Default select example"
+                            name="subBrandId"
+                            value={formValue.subBrandId}
+                            onChange={handleChange}
+                        >
+                            <option value={""} disabled>Select Sub-Brand</option>
+                            {subBrandData.map((item, i) =>
+                                <option key={i} value={item?._id}>{item?.name}</option>
+                            )
+                            }
+                        </select>
+                    </div>
+
+                </div>
+
+                <div className="row">
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Title</label>
                         <input
@@ -267,9 +316,6 @@ const AddWork = () => {
                             onChange={handleChange}
                         />
                     </div>
-                </div>
-
-                <div className="row">
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Subtitle</label>
                         <input
@@ -281,6 +327,10 @@ const AddWork = () => {
                             onChange={handleChange}
                         />
                     </div>
+
+                </div>
+
+                <div className="row">
                     <div className="col">
                         <label htmlFor="formGroupExampleInput">Description</label>
                         <textarea
@@ -455,7 +505,8 @@ const AddWork = () => {
                     </div>
                 </div>
 
-                <div>
+                {/* thumbnail img */}
+                <div className="mt-1">
                     <label for="exampleInputEmail1">
                         Thumbnail<span style={{ color: "red" }}></span> :
                     </label>
@@ -467,6 +518,7 @@ const AddWork = () => {
                         id="categoryBanner"
                         accept="image/*"
                     />
+                    <div>(  171 x 160 px)</div>
                     {imgLoader ? (
                         <>
                             <div>
@@ -486,13 +538,12 @@ const AddWork = () => {
                                     }}
                                     src={image}
                                 />
-                                <button
+                                <span
                                     onClick={() => HandleCrossClick()}
-                                    style={{ color: "red" }}
-                                    type="button"
-                                    class="btn-close"
-                                    aria-label="Close"
-                                ></button>
+                                    style={{ fontSize: "25px", cursor: "pointer" }}
+                                >
+                                    x
+                                </span>
                             </div>
                         </>
                     )}

@@ -13,7 +13,8 @@ const AddCaseStudy = () => {
         subTitle: "",
         priority: "",
         description: "",
-        image: []
+        image: [],
+        videoLink: ""
     }
     const [formValue, setFormValue] = useState(initValue);
     const [catData, setCatData] = useState([]);
@@ -107,7 +108,8 @@ const AddCaseStudy = () => {
             subTitle: formValue.subTitle,
             description: formValue.description,
             image: formValue.image,
-            priority: formValue.priority
+            priority: formValue.priority,
+            video: formValue.videoLink
         }
         setIsLoading(true);
         const res = await HttpClient.requestData("add-case-study", "POST", data);
@@ -187,11 +189,25 @@ const AddCaseStudy = () => {
                             value={formValue.priority}
                             onChange={handleChange}
                         />
-
-
-
                     </div>
 
+                    {/* video link */}
+                    <div className="col-6">
+                        <label htmlFor="formGroupExampleInput">Video Link</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Video Link"
+                            name="videoLink"
+                            value={formValue.videoLink}
+                            onChange={handleChange}
+                        />
+                    </div>
+                </div>
+
+                <div className="row">
+
+                    {/* Image */}
                     <div className="col-sm-6">
                         <label htmlFor="formGroupExampleInput">Image</label>
                         <input
@@ -239,6 +255,7 @@ const AddCaseStudy = () => {
                         </div>
 
                     </div>
+
                 </div>
 
 

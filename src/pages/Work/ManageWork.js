@@ -33,6 +33,10 @@ const ManageWork = () => {
             selector: row => row.name,
         },
         {
+            name: 'Sub-Brand Name',
+            selector: row => row.subBrandName,
+        },
+        {
             name: 'Title',
             selector: row => row.title,
         },
@@ -81,6 +85,7 @@ const ManageWork = () => {
                 id: i + 1,
                 sl: i + 1,
                 name: item?.catName,
+                subBrandName: item?.SubBrand?.[0]?.name ? item?.SubBrand?.[0]?.name : "-",
                 title: item?.title,
                 subtitle: item?.subTitle,
                 media: item?.medianame,

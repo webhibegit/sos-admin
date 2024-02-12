@@ -34,8 +34,12 @@ const ManageCAtegory = () => {
             selector: row => row.type,
         },
         {
+            name: 'Priority',
+            selector: row => row.priorit,
+        },
+        {
             name: 'Brand Image',
-            selector: row => (<div style={{width:"150px", height:"150px"}}>{row.image}</div>) ,
+            selector: row => (<div style={{ width: "150px", height: "150px" }}>{row.image}</div>),
         },
         {
             name: 'Action',
@@ -55,8 +59,9 @@ const ManageCAtegory = () => {
                 id: i + 1,
                 sl: i + 1,
                 name: item?.name,
-                type:item?.type,
-                image:<img style={{width:"150px", height:"150px"}} src={item?.logoUrl} alt={"logo"} />,
+                type: item?.type,
+                priorit: item?.priority,
+                image: <img style={{ width: "150px", height: "150px" }} src={item?.logoUrl} alt={"logo"} />,
                 action: <EditDeleteIcon
                     onClickEdit={(e) => handleEdit(item?._id)}
                     onClickDelete={(e) => handleDelete(item?._id)}
