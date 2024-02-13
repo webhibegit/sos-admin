@@ -235,7 +235,7 @@ const EditWork = () => {
 
         const data = {
             catID: formValue.catID,
-            subbrandID: formValue.subBrandId,
+            subbrandID: formValue.subBrandId ? formValue.subBrandId : null,
             title: formValue.title,
             subTitle: formValue.subTitle,
             description: formValue.description,

@@ -217,7 +217,7 @@ const AddWork = () => {
 
         const data = {
             catID: formValue.catID,
-            subbrandID: formValue.subBrandId,
+            subbrandID: formValue.subBrandId ? formValue.subBrandId : null,
             title: formValue.title,
             subTitle: formValue.subTitle,
             mediaID: formValue.media,
@@ -394,6 +394,7 @@ const AddWork = () => {
                                     name="language"
                                     id="inlineRadio1"
                                     value="Bengali"
+                                    checked={formValue.language === "Bengali"}
                                     onChange={() => setFormValue(prev => ({ ...prev, language: "Bengali" }))}
                                 />
                                 <label classname="form-check-label" for="inlineRadio1">Bengali</label>
@@ -406,6 +407,7 @@ const AddWork = () => {
                                     name="language"
                                     id="inlineRadio1"
                                     value="Hindi"
+                                    checked={formValue.language === "Hindi"}
                                     onChange={() => setFormValue(prev => ({ ...prev, language: "Hindi" }))}
                                 />
                                 <label classname="form-check-label" for="inlineRadio1">Hindi</label>
@@ -419,6 +421,7 @@ const AddWork = () => {
                                     name="language"
                                     id="inlineRadio3"
                                     value="English"
+                                    checked={formValue.language === "English"}
                                     onChange={() => setFormValue(prev => ({ ...prev, language: "English" }))}
                                 />
                                 <label classname="form-check-label" for="inlineRadio3">English</label>
