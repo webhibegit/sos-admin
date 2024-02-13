@@ -17,7 +17,6 @@ const AddNews = () => {
     const [priority, setPriority] = useState("");
     const [newsImg, setNewsImg] = useState("");
     const [newsLink, setNewsLink] = useState("");
-    const [thumbnailImg, setThumbnailImg] = useState("");
 
     const [imageLoader, setImgLoader] = useState(false);
     const [imageLoaderThumb, setImgLoaderThumb] = useState(false);
@@ -44,7 +43,6 @@ const AddNews = () => {
             image: newsImg,
             link: newsLink,
             priority: priority,
-            thumbnailImage: thumbnailImg
         }
 
         setIsLoading(true);
@@ -55,7 +53,6 @@ const AddNews = () => {
             setNewsImg("");
             setNewsLink("");
             setPriority("");
-            setThumbnailImg("")
             setIsLoading(false);
             // navigate('/manage-category');
         } else {
@@ -88,29 +85,6 @@ const AddNews = () => {
             toast?.error(res?.message || "something wrong")
         }
     }
-
-    // thumbnail img upload
-    const handleThumbnailImageChange = async (e) => {
-        let file = e.target.files[0]
-        // let imgArr = [];
-
-        let data = new FormData();
-        data.append("image", file);
-        // console.log(data, "daaaaa");
-        setImgLoaderThumb(true)
-        let res = await HttpClient.fileUplode("work-image-upload", "POST", data);
-        // console.log("resultImg", res);
-        if (res && res?.status) {
-            setImgLoaderThumb(false)
-            let url = res?.data?.url;
-            // imgArr = [...imgArr, url]
-            setThumbnailImg(url)
-        } else {
-            setImgLoaderThumb(false)
-            toast?.error(res?.message || "something wrong")
-        }
-    }
-
 
 
     return (
@@ -147,10 +121,9 @@ const AddNews = () => {
 
                 <div className="row">
 
-
                     {/* image */}
-                    <div className="col">
-                        <label for="formGroupExampleInput">Image</label>
+                    <div className="col-6">
+                        <label for="formGroupExampleInput">Thumbnail Image</label>
                         <input
                             type="file"
                             className="form-control"
@@ -178,45 +151,6 @@ const AddNews = () => {
                                         style={{ fontSize: "25px", cursor: "pointer" }}
                                         onClick={() => {
                                             setNewsImg("")
-                                        }}
-                                    >
-                                        x
-                                    </span>
-                                </span>
-                            }
-                        </div>
-                    </div>
-
-                    {/* Thumbnail image */}
-                    <div className="col">
-                        <label for="formGroupExampleInput">Thumbnail Image</label>
-                        <input
-                            type="file"
-                            className="form-control"
-                            placeholder="Image"
-                            onChange={handleThumbnailImageChange}
-                        // value={catName}
-                        // name="category"
-                        />
-
-                        <div>
-                            {imageLoaderThumb &&
-                                <div>
-                                    <Skeleton variant="rectangular" width={100} height={100} />
-                                </div>
-                            }
-                            {thumbnailImg &&
-                                <span>
-                                    < img
-                                        src={thumbnailImg}
-                                        className="img-fluid m-1"
-                                        alt="Responsive image"
-                                        style={{ height: "5rem", width: "5rem" }}
-                                    />
-                                    <span
-                                        style={{ fontSize: "25px", cursor: "pointer" }}
-                                        onClick={() => {
-                                            setThumbnailImg("")
                                         }}
                                     >
                                         x

@@ -14,19 +14,17 @@ const Login = () => {
     const [passord, setPassword] = useState("");
 
     const handleSubmit = async (e) => {
-        // console.log("valuesdd");
         e.preventDefault();
 
         if (!email) return toast.error("Email is Required");
         if (!passord) return toast.error("Password is Required");
-
 
         const data = {
             email: email,
             password: passord
         }
         const res = await HttpClient.requestData("login", "POST", data);
-        console.log("resCat", res)
+        // console.log("resCat", res)
         if (res && res.status) {
             navigate("/dashboard")
             reactLocalStorage.setObject("userDataSos", { token: res?.data?.token })

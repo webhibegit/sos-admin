@@ -16,16 +16,13 @@ const EditNews = () => {
     const [priority, setPriority] = useState("");
     const [catName, setCatName] = useState();
     const [isLoading, setIsLoading] = useState(false);
-    const [thumbnailImg, setThumbnailImg] = useState("");
-    const [imageLoaderThumb, setImgLoaderThumb] = useState(false);
 
 
     const [newsImg, setNewsImg] = useState("");
     const [newsLink, setNewsLink] = useState("");
     const [imageLoader, setImgLoader] = useState(false);
 
-    console.log("newsImg", newsLink, newsImg)
-
+    // console.log("newsImg", newsLink, newsImg)
 
     // submit
     const handleSubmit = async (e) => {
@@ -45,7 +42,6 @@ const EditNews = () => {
             image: newsImg,
             link: newsLink,
             priority: priority,
-            thumbnailImage: thumbnailImg
         }
         setIsLoading(true);
         const res = await HttpClient.requestData("update-news/" + params.id, "PUT", data);
@@ -87,29 +83,6 @@ const EditNews = () => {
         }
     }
 
-    // thumbnail img upload
-    const handleThumbnailImageChange = async (e) => {
-        let file = e.target.files[0]
-        // let imgArr = [];
-
-        let data = new FormData();
-        data.append("image", file);
-        // console.log(data, "daaaaa");
-        setImgLoaderThumb(true)
-        let res = await HttpClient.fileUplode("work-image-upload", "POST", data);
-        // console.log("resultImg", res);
-        if (res && res?.status) {
-            setImgLoaderThumb(false)
-            let url = res?.data?.url;
-            // imgArr = [...imgArr, url]
-            setThumbnailImg(url)
-        } else {
-            setImgLoaderThumb(false)
-            toast?.error(res?.message || "something wrong")
-        }
-    }
-
-
     const getSingleNews = async () => {
         setIsLoading(true);
         const res = await HttpClient.requestData("view-single-news/" + params.id)
@@ -119,7 +92,6 @@ const EditNews = () => {
             setNewsLink(singNews?.link);
             setNewsImg(singNews?.image);
             setPriority(singNews?.priority);
-            setThumbnailImg(singNews?.thumbnailImage)
             setIsLoading(false);
         } else {
             setIsLoading(false);
@@ -167,8 +139,8 @@ const EditNews = () => {
 
                 <div className="row">
                     {/* image */}
-                    <div className="col">
-                        <label for="formGroupExampleInput">Image</label>
+                    <div className="col-6">
+                        <label for="formGroupExampleInput">Thumbnail Image</label>
                         <input
                             type="file"
                             className="form-control"
@@ -198,45 +170,6 @@ const EditNews = () => {
                                         style={{ fontSize: "25px", cursor: "pointer" }}
                                         onClick={() => {
                                             setNewsImg("")
-                                        }}
-                                    >
-                                        x
-                                    </span>
-                                </span>
-                            }
-                        </div>
-                    </div>
-
-                    {/* Thumbnail image */}
-                    <div className="col">
-                        <label for="formGroupExampleInput">Thumbnail Image</label>
-                        <input
-                            type="file"
-                            className="form-control"
-                            placeholder="Image"
-                            onChange={handleThumbnailImageChange}
-                        // value={catName}
-                        // name="category"
-                        />
-
-                        <div>
-                            {imageLoaderThumb &&
-                                <div>
-                                    <Skeleton variant="rectangular" width={100} height={100} />
-                                </div>
-                            }
-                            {thumbnailImg &&
-                                <span>
-                                    < img
-                                        src={thumbnailImg}
-                                        className="img-fluid m-1"
-                                        alt="Responsive image"
-                                        style={{ height: "5rem", width: "5rem" }}
-                                    />
-                                    <span
-                                        style={{ fontSize: "25px", cursor: "pointer" }}
-                                        onClick={() => {
-                                            setThumbnailImg("")
                                         }}
                                     >
                                         x
