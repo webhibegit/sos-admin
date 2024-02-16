@@ -151,6 +151,8 @@ const EditNews = () => {
                         // name="category"
                         />
 
+                        <p>(265 × 225 px)</p>
+
                         <div>
                             {imageLoader
                                 ?
